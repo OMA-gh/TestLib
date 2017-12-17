@@ -123,7 +123,6 @@ float OctavePerlin(float x, float y, int octaves, float persistence, float lacun
 }
 
 Terrain::Terrain() : Model(){
-	setIndexInfo();
 }
 
 void Terrain::setIndexInfo() {
@@ -238,8 +237,5 @@ void Terrain::setIndexInfo() {
 			mNormalArray[index].z = normal.z;
 		}
 	}
-
-    const int index_array_size = (SIZE - 1)*(SIZE - 1);
-    setPolygonNum(index_array_size);
 }
 

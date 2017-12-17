@@ -169,8 +169,8 @@ void SceneBasic::initScene()
 	prog.setUniform("Light.Ls", 1.0f, 1.0f, 1.0f);
 	prog.setUniform("Material.Shininess", 100.0f);
 
-	mCube.setVertexBufferObject();
-	mTerrain.setVertexBufferObject();
+    mCube.init();
+    mTerrain.init();
 }
 void SceneBasic::setMatrices()
 {

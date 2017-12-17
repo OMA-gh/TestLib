@@ -2,7 +2,6 @@
 #include "Cube.h"
 
 Cube::Cube() : Model() {
-	setIndexInfo();
 }
 
 void Cube::setIndexInfo() {
@@ -51,8 +50,6 @@ void Cube::setIndexInfo() {
 	}
 
 	const int index_array_size = 6 * 2 * 3;
-	setPolygonNum(index_array_size);
-	//index_array->resize(index_array_size);
 
 	int push_index_array[36] = {
 		0,1,2,

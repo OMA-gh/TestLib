@@ -15,12 +15,9 @@ public:
 	Model();
 	~Model() {};
 
+    void init();
 	void render();
 	void setVertexBufferObject();
-
-	void setPolygonNum(int num) {
-		mPolygonNum = num;
-	}
 
 	std::vector<glm::vec3>* getPositionArrayPtr() {
 		return &mPositionArray;
@@ -34,8 +31,9 @@ public:
 	std::vector<int>* getIndexArrayPtr() {
 		return &mIndexArray;
 	}
+
 protected:
-	virtual void setIndexInfo() = 0;
+    virtual void setIndexInfo() {};
 
 	std::vector<glm::vec3> mPositionArray;
 	std::vector<glm::vec3> mColorArray;
