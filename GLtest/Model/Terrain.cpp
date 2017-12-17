@@ -127,47 +127,54 @@ Terrain::Terrain() : Model(){
 }
 
 void Terrain::setIndexInfo() {
+    glm::vec3 push_pos(0);
+    glm::vec3 push_color(0);
+    glm::vec3 push_normal(0);
 	for (int i = 0; i < GRID_SIZE; i++) {
-		mPositionArray[i].x = (float)FIELD_SIZE / SIZE*(i%SIZE);// x
-		mPositionArray[i].z = (float)FIELD_SIZE / SIZE*((int)(i / SIZE));// z
-		float x = mPositionArray[i].x / 255.f;
-		float z = mPositionArray[i].z / 255.f;
-		//mPositionArray[i].y = OctavePerlin(x, z, 20, 0.8f, 0.4f);// y
-		mPositionArray[i].y = OctavePerlin(mPositionArray[i].x, mPositionArray[i].z, 8, 0.8f, 0.4f);// y
-		float y = mPositionArray[i].y;
+		push_pos.x = (float)FIELD_SIZE / SIZE*(i%SIZE);// x
+		push_pos.z = (float)FIELD_SIZE / SIZE*((int)(i / SIZE));// z
+		float x = push_pos.x / 255.f;
+		float z = push_pos.z / 255.f;
+		//push_pos.y = OctavePerlin(x, z, 20, 0.8f, 0.4f);// y
+		push_pos.y = OctavePerlin(push_pos.x, push_pos.z, 8, 0.8f, 0.4f);// y
+		float y = push_pos.y;
 		if (y < 0.41) {
-			mColorArray[i].x = 0.8f;
-			mColorArray[i].y = 0.5f;
-			mColorArray[i].z = 0.3f;
+			push_color.x = 0.8f;
+			push_color.y = 0.5f;
+			push_color.z = 0.3f;
 		}
 		else if (y<0.51) {
-			mColorArray[i].x = 0.1f;
-			mColorArray[i].y = 0.8f;
-			mColorArray[i].z = 0.3f;
+			push_color.x = 0.1f;
+			push_color.y = 0.8f;
+			push_color.z = 0.3f;
 		}
 		else {
-			mColorArray[i].x = 0.5f;
-			mColorArray[i].y = 0.5f;
-			mColorArray[i].z = 0.5f;
+			push_color.x = 0.5f;
+			push_color.y = 0.5f;
+			push_color.z = 0.5f;
 		}
-		mPositionArray[i].y *= 10.f;// y
+		push_pos.y *= 10.f;// y
 
-		mNormalArray[i].x = 0.f;
-		mNormalArray[i].y = 1.f;
-		mNormalArray[i].z = 0.f;
+		push_normal.x = 0.f;
+		push_normal.y = 1.f;
+		push_normal.z = 0.f;
+
+        mPositionArray.push_back(push_pos);
+        mColorArray.push_back(push_color);
+        mNormalArray.push_back(push_normal);
 	}
 	for (int i = 0; i < SIZE - 1; i++) {
 		for (int k = 0; k < SIZE - 1; k++) {
 			int index = (i*SIZE + k);
 			int index1 = index * 2 * 3;
-			mIndexArray[index1] = index;
-			mIndexArray[index1 + 1] = index + SIZE;
-			mIndexArray[index1 + 2] = index + 1;
+            mIndexArray.push_back(index);
+			mIndexArray.push_back(index + SIZE);
+			mIndexArray.push_back(index + 1);
 
 			int index2 = (index * 2 + 1) * 3;
-			mIndexArray[index2] = index + SIZE + 1;
-			mIndexArray[index2 + 1] = index + 1;
-			mIndexArray[index2 + 2] = index + SIZE;
+            mIndexArray.push_back(index + SIZE + 1);
+			mIndexArray.push_back(index + 1);
+			mIndexArray.push_back(index + SIZE);
 		}
 	}
 	for (int i = 1; i < SIZE - 1; i++) {
@@ -231,5 +238,8 @@ void Terrain::setIndexInfo() {
 			mNormalArray[index].z = normal.z;
 		}
 	}
+
+    const int index_array_size = (SIZE - 1)*(SIZE - 1);
+    setPolygonNum(index_array_size);
 }
 

@@ -85,5 +85,5 @@ void Model::setVertexBufferObject() {
 
 void Model::render() {
 	glBindVertexArray(mVaoHandle);
-	glDrawElements(GL_TRIANGLES, mPolygonNum, GL_UNSIGNED_INT, BUFFER_OFFSET(0));
+	glDrawElements(GL_TRIANGLES, mIndexArray.size() * sizeof(int), GL_UNSIGNED_INT, BUFFER_OFFSET(0));
 }
