@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="シェーダファイル">
+      <UniqueIdentifier>{61aee765-5a76-4271-830e-5bcc79a677ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GLSL System">
+      <UniqueIdentifier>{73bf0db6-60f8-4462-9032-62fd93a33e8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{2675419c-896a-4f85-9b77-09e404d65064}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{33908272-812e-4aed-823f-f40a41c5ca69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terrain">
+      <UniqueIdentifier>{aaa3444e-a9cb-4ec1-98db-3d9fe23d9016}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="glslprogram.cpp">
+      <Filter>GLSL System</Filter>
+    </ClCompile>
+    <ClCompile Include="glutils.cpp">
+      <Filter>GLSL System</Filter>
+    </ClCompile>
+    <ClCompile Include="scenebasic.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Model\Terrain.cpp">
+      <Filter>Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Model\Cube.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Model\Model.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="glslprogram.h">
+      <Filter>GLSL System</Filter>
+    </ClInclude>
+    <ClInclude Include="glutils.h">
+      <Filter>GLSL System</Filter>
+    </ClInclude>
+    <ClInclude Include="scenebasic.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\Terrain.h">
+      <Filter>Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\Cube.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\Model.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader\map.frag">
+      <Filter>シェーダファイル</Filter>
+    </None>
+    <None Include="shader\map.vert">
+      <Filter>シェーダファイル</Filter>
+    </None>
+    <None Include="shader\basic.fs">
+      <Filter>シェーダファイル</Filter>
+    </None>
+    <None Include="shader\basic.vs">
+      <Filter>シェーダファイル</Filter>
+    </None>
+    <None Include="shader\basic.gs">
+      <Filter>シェーダファイル</Filter>
+    </None>
+  </ItemGroup>
+</Project>
