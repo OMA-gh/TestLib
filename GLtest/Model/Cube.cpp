@@ -5,10 +5,6 @@ Cube::Cube() : Model() {
 }
 
 void Cube::setIndexInfo() {
-	//position_array->resize(size_t(8));
-	//color_array->resize(size_t(8));
-	//normal_array->resize(size_t(8));
-
 	for (int k = 0; k < 2; k++) {
 		for (int i = 0; i < 4; i++) {
 			glm::vec3 push_pos(
@@ -17,11 +13,6 @@ void Cube::setIndexInfo() {
 				i % 2 == 0 ? -1 : 1
 			);
 			mPositionArray.push_back(push_pos);
-			/*
-			mPositionArray[i + k * 4].x = i / 2 == 0 ? -1 : 1;
-			mPositionArray[i + k * 4].y = 7+(k == 0 ? 1 : -1);
-			mPositionArray[i + k * 4].z = i % 2 == 0 ? -1 : 1;
-			*/
 		}
 	}
 	for (int i = 0; i < 8; i++) {
@@ -37,16 +28,6 @@ void Cube::setIndexInfo() {
 		);
 		mColorArray.push_back(push_color);
 		mNormalArray.push_back(push_normal);
-
-		/*
-		mColorArray[i].x = 0.5f;
-		mColorArray[i].y = i*0.1f;
-		mColorArray[i].z = 1 - i*0.1f;
-
-		mNormalArray[i].x = mPositionArray[i].x;
-		mNormalArray[i].y = mPositionArray[i].y-7;
-		mNormalArray[i].z = mPositionArray[i].z;
-		*/
 	}
 
 	const int index_array_size = 6 * 2 * 3;
@@ -68,26 +49,6 @@ void Cube::setIndexInfo() {
 	for (int i = 0; i < 36; i++) {
 		mIndexArray.push_back(push_index_array[i]);
 	}
-	/*
-	int i = 0;
-	i = 0; mIndexArray[i * 3] = 0;	mIndexArray[i * 3 + 1] = 1;	mIndexArray[i * 3 + 2] = 2;
-	i = 1; mIndexArray[i * 3] = 1;	mIndexArray[i * 3 + 1] = 3;	mIndexArray[i * 3 + 2] = 2;
-
-	i = 2; mIndexArray[i * 3] = 1;	mIndexArray[i * 3 + 1] = 5;	mIndexArray[i * 3 + 2] = 3;
-	i = 3; mIndexArray[i * 3] = 5;	mIndexArray[i * 3 + 1] = 7;	mIndexArray[i * 3 + 2] = 3;
-	
-	i = 4; mIndexArray[i * 3] = 3;	mIndexArray[i * 3 + 1] = 7;	mIndexArray[i * 3 + 2] = 2;
-	i = 5; mIndexArray[i * 3] = 7;	mIndexArray[i * 3 + 1] = 6;	mIndexArray[i * 3 + 2] = 2;
-	
-	i = 6; mIndexArray[i * 3] = 2;	mIndexArray[i * 3 + 1] = 6;	mIndexArray[i * 3 + 2] = 0;
-	i = 7; mIndexArray[i * 3] = 6;	mIndexArray[i * 3 + 1] = 4;	mIndexArray[i * 3 + 2] = 0;
-
-	i = 8; mIndexArray[i * 3] = 0;	mIndexArray[i * 3 + 1] = 4;	mIndexArray[i * 3 + 2] = 1;
-	i = 9; mIndexArray[i * 3] = 4;	mIndexArray[i * 3 + 1] = 5;	mIndexArray[i * 3 + 2] = 1;
-
-	i = 10; mIndexArray[i * 3] = 7;	mIndexArray[i * 3 + 1] = 6;	mIndexArray[i * 3 + 2] = 5;
-	i = 11; mIndexArray[i * 3] = 6;	mIndexArray[i * 3 + 1] = 4;	mIndexArray[i * 3 + 2] = 5;
-	*/
 }
 
 void Cube::update() {
