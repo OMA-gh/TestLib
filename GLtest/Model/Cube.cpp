@@ -55,9 +55,5 @@ void Cube::update() {
 	for (int i = 0; i < 8; i++) {
 		//mPositionArray[i].z += 0.01;
 	}
-	int hoge[36] = {};
-	printf("pos size:%d, default:%d\n", sizeof(mPositionArray), sizeof(hoge));
-	printf("index size:%d,%d\n", sizeof(mIndexArray),sizeof(int));
-	printf("-------------------------\n");
 }
 
