@@ -12,12 +12,14 @@ uniform mat4 ModelViewMatrix;
 uniform mat3 NormalMatrix;
 uniform mat4 MVP;
 
+uniform vec3 ObjectPosition;
+
 void main()
 {
-    
+    vec3 pos = VertexPosition+ObjectPosition;
 	VNormal = normalize( NormalMatrix * VertexNormal );
 	VNormal = normalize( VertexNormal );
-    VPosition = vec3(ModelViewMatrix * vec4(VertexPosition,1.0));
+    VPosition = vec3(ModelViewMatrix * vec4(pos,1.0));
 	VColor = VertexColor;
-    gl_Position = MVP * vec4(VertexPosition,1.0);
+    gl_Position = MVP * vec4(pos,1.0);
 }

@@ -14,7 +14,7 @@ public:
 		view = glm::mat4(1.0f);
 		angleH = 0;
 		angleY = 30;
-		fovy = 30;
+		fovy = 60;
 	}
 
 	void update();

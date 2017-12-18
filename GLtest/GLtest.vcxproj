@@ -113,6 +113,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actor\Actor.cpp" />
+    <ClCompile Include="Actor\Test.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="glslprogram.cpp" />
     <ClCompile Include="glutils.cpp" />
@@ -123,6 +125,8 @@
     <ClCompile Include="scenebasic.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actor\Actor.h" />
+    <ClInclude Include="Actor\Test.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="glslprogram.h" />
     <ClInclude Include="glutils.h" />

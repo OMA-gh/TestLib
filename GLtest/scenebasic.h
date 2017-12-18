@@ -2,8 +2,6 @@
 #define SCENEBASIC_H
 
 #include "scene.h"
-#include "Model\Terrain.h"
-#include "Model\Cube.h"
 
 #include <gl/GL/glew.h>
 #include <gl/GL/glut.h>
@@ -12,6 +10,11 @@
 
 #include "glslprogram.h"
 #include "Camera.h"
+
+#include "Model\Terrain.h"
+#include "Model\Cube.h"
+
+#include "Actor\Test.h"
 
 class SceneBasic : public Scene
 {
@@ -24,6 +27,8 @@ private:
 
 	void compileAndLinkShader();
 	void setMatrices();
+	void setActorMatrix(Actor* actor);
+	void resetActorMatrix();
 
 public:
     SceneBasic();
@@ -54,6 +59,8 @@ protected:
 	GLuint mFragShader;
 	GLuint mProgramHandle;
 	Camera mCamera;
+
+	Test mTest;
 
 	Terrain mTerrain;
 	Cube mCube;

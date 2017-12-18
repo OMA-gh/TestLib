@@ -21,6 +21,7 @@ float PI = 3.141592653589f;
 SceneBasic::SceneBasic()
 	:mTerrain()
 	,mCube()
+	,mTest()
 {
 }
 
@@ -40,7 +41,10 @@ void SceneBasic::initScene()
 
     mCube.init();
     mTerrain.init();
+
+	mTest.setModel(&mCube);
 }
+
 void SceneBasic::setMatrices()
 {
 	static int count = 0;
@@ -60,6 +64,14 @@ void SceneBasic::setMatrices()
 	if (count > 360) {
 		count -= 360;
 	}
+}
+
+void SceneBasic::setActorMatrix(Actor* actor) {
+	prog.setUniform("ObjectPosition", actor->getPosition());
+}
+
+void SceneBasic::resetActorMatrix() {
+	prog.setUniform("ObjectPosition", glm::vec3(0.f));
 }
 
 void SceneBasic::compileAndLinkShader()
@@ -98,7 +110,7 @@ void SceneBasic::update( float t )
 {
 	mCamera.update();
 
-	mCube.update();
+	mTest.update();
 }
 
 void SceneBasic::render()
@@ -109,7 +121,9 @@ void SceneBasic::render()
 	/* 頂点データ，法線データ，テクスチャ座標の配列を有効にする */
 	glEnableClientState(GL_VERTEX_ARRAY);
 
-	mCube.render();
+	setActorMatrix(&mTest);
+	mTest.render();
+	resetActorMatrix();
 	mTerrain.render();
 
 	/* 頂点データ，法線データ，テクスチャ座標の配列を無効にする */

@@ -16,7 +16,7 @@ public:
 	~Model() {};
 
     void init();
-	void render();
+	void render() const;
 	void setVertexBufferObject();
 
 	std::vector<glm::vec3>* getPositionArrayPtr() {
