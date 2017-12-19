@@ -13,10 +13,13 @@ uniform mat3 NormalMatrix;
 uniform mat4 MVP;
 
 uniform vec3 ObjectPosition;
+uniform vec3 ObjectScale;
+uniform vec3 ObjectRotation;
 
 void main()
 {
-    vec3 pos = VertexPosition+ObjectPosition;
+	vec3 rotate = ObjectRotation/vec3(1,0,0);
+    vec3 pos = VertexPosition*ObjectScale+ObjectPosition;
 	VNormal = normalize( NormalMatrix * VertexNormal );
 	VNormal = normalize( VertexNormal );
     VPosition = vec3(ModelViewMatrix * vec4(pos,1.0));

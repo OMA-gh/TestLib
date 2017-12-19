@@ -68,10 +68,14 @@ void SceneBasic::setMatrices()
 
 void SceneBasic::setActorMatrix(Actor* actor) {
 	prog.setUniform("ObjectPosition", actor->getPosition());
+	prog.setUniform("ObjectScale", actor->getScale());
+	prog.setUniform("ObjectRotation", actor->getRotation());
 }
 
 void SceneBasic::resetActorMatrix() {
 	prog.setUniform("ObjectPosition", glm::vec3(0.f));
+	prog.setUniform("ObjectScale", glm::vec3(1.f));
+	prog.setUniform("ObjectRotation", glm::vec3(1.f, 0.f, 0.f));
 }
 
 void SceneBasic::compileAndLinkShader()
