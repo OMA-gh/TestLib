@@ -9,8 +9,5 @@ Actor::Actor()
 };
 
 void Actor::render() const {
-	glPushMatrix();
-	glTranslatef(getPosition().x, getPosition().y, getPosition().z);
 	mModel->render();
-	glPopMatrix();
 }
