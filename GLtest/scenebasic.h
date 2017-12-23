@@ -13,6 +13,7 @@
 
 #include "Model\Terrain.h"
 #include "Model\Cube.h"
+#include "Model\Plane.h"
 
 #include "Actor\Test.h"
 
@@ -64,6 +65,7 @@ protected:
 	Test mLight;
 
 	Terrain mTerrain;
+	Plane mPlane;
 	Cube mCube;
 };
 

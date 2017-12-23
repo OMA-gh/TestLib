@@ -158,6 +158,9 @@ void Terrain::setIndexInfo() {
 		push_normal.y = 1.f;
 		push_normal.z = 0.f;
 
+		push_texcoord.x = push_pos.x / FIELD_SIZE;
+		push_texcoord.y = push_pos.z / FIELD_SIZE;
+
         mPositionArray.push_back(push_pos);
         mColorArray.push_back(push_color);
         mNormalArray.push_back(push_normal);

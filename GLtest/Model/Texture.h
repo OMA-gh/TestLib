@@ -34,6 +34,9 @@ public:
 	GLuint& getTextureId() {
 		return mTid;
 	}
+	GLuint getColorType() const {
+		return mChannel == 4 ? GL_RGBA : GL_RGB;
+	}
 private:
 	std::string mFileName;
 	int mWidth, mHeight;

@@ -69,4 +69,6 @@ void main() {
 	vec4 texColor = texture(Tex1,GTexCoord);
 	//FragColor = mix( vec4(phongModel(), 1.0), Line.Color, mixVal );
 	FragColor = vec4(ambAndDiff, 1.0) * texColor + vec4(spec, 1.0);
+	//FragColor = texColor;
+	//FragColor = mix( texColor, Line.Color, mixVal );
 }

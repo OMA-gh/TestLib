@@ -123,6 +123,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model\Cube.cpp" />
     <ClCompile Include="Model\Model.cpp" />
+    <ClCompile Include="Model\Plane.cpp" />
     <ClCompile Include="Model\Terrain.cpp" />
     <ClCompile Include="Model\Texture.cpp" />
     <ClCompile Include="scenebasic.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="glutils.h" />
     <ClInclude Include="Model\Cube.h" />
     <ClInclude Include="Model\Model.h" />
+    <ClInclude Include="Model\Plane.h" />
     <ClInclude Include="Model\Terrain.h" />
     <ClInclude Include="Model\Texture.h" />
     <ClInclude Include="scene.h" />

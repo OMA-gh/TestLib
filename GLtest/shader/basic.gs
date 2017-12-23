@@ -52,7 +52,7 @@ void main()
     GNormal = VNormal[2];
     GPosition = VPosition[2];
     GColor = VColor[2];
-    GTexCoord = VTexCoord[3];
+    GTexCoord = VTexCoord[2];
     gl_Position = gl_in[2].gl_Position;
     EmitVertex();
 

@@ -53,14 +53,14 @@ void Model::setVertexBufferObject() {
 	glBindVertexArray(0);
 	
 	//Set Texture
-	mTexture.init("Resources/test.jpg");
+	mTexture.init("Resources/test.png");
 	glActiveTexture(GL_TEXTURE0);
 	glGenTextures(1, &(mTexture.getTextureId()));
 	glBindTexture(GL_TEXTURE_2D, mTexture.getTextureId());
 	glTexImage2D(
-		GL_TEXTURE_2D, 0, GL_RGBA, 
+		GL_TEXTURE_2D, 0, mTexture.getColorType(),
 		mTexture.getWidth(), mTexture.getHeight(),
-		0, GL_RGBA, GL_UNSIGNED_BYTE,
+		0, mTexture.getColorType(), GL_UNSIGNED_BYTE,
 		mTexture.getImageBitsPtr()
 	);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

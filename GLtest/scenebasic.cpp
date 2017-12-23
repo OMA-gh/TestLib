@@ -42,10 +42,11 @@ void SceneBasic::initScene()
 
 	prog.setUniform("Tex1", 0);
 
+	mPlane.init();
     mCube.init();
     mTerrain.init();
 
-	mTest.setModel(&mCube);
+	mTest.setModel(&mPlane);
 	mLight.setModel(&mCube);
 }
 

@@ -8,10 +8,10 @@
 
 #include "Model.h"
 
-class Cube : public Model {
+class Plane : public Model {
 public:
-	Cube();
-	~Cube() {};
+	Plane();
+	~Plane() {};
 
 	void update();
 private:
