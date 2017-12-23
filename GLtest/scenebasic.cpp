@@ -29,6 +29,8 @@ SceneBasic::SceneBasic()
 void SceneBasic::initScene()
 {
 	compileAndLinkShader();
+	setFrameBuffer();
+	setWhiteTextureInfo();
 	
 	prog.setUniform("Line.Width", 0.75f);
 	prog.setUniform("Line.Color", vec4(0.05f, 0.0f, 0.05f, 1.0f));
@@ -40,14 +42,53 @@ void SceneBasic::initScene()
 	prog.setUniform("Light.Ls", 1.0f, 1.0f, 1.0f);
 	prog.setUniform("Material.Shininess", 100.0f);
 
-	prog.setUniform("Tex1", 0);
-
 	mPlane.init();
     mCube.init();
     mTerrain.init();
 
 	mTest.setModel(&mPlane);
 	mLight.setModel(&mCube);
+}
+
+void SceneBasic::setFrameBuffer() {
+	// create and bind framebuffer
+	glGenFramebuffers(1, &mFboHandle);
+	glBindFramebuffer(GL_FRAMEBUFFER, mFboHandle);
+
+	// create texture object
+	glGenTextures(1, &mRenderTexture);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, mRenderTexture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 512, 512, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	//bind texture to fbo
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, mRenderTexture, 0);
+
+	//create depth buffer
+	glGenRenderbuffers(1, &mDepthBuffer);
+	glBindRenderbuffer(GL_RENDERBUFFER, mDepthBuffer);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 512, 512);
+
+	//bind depthbuffer to fbo
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mDepthBuffer);
+
+	//set fragment shader target
+	mDrawBufs[0] = GL_COLOR_ATTACHMENT0;
+	glDrawBuffers(1, mDrawBufs);
+
+	//unbind framebuffer
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void SceneBasic::setWhiteTextureInfo() {
+	// One pixel white texture
+	GLubyte whiteTex[] = { 255, 255, 255, 255 };
+	glActiveTexture(GL_TEXTURE1);
+	glGenTextures(1, &mWhiteTexHandle);
+	glBindTexture(GL_TEXTURE_2D, mWhiteTexHandle);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, whiteTex);
 }
 
 void SceneBasic::setMatrices()
@@ -129,16 +170,25 @@ void SceneBasic::render()
 {
 	setMatrices();
 
-    glClear(GL_COLOR_BUFFER_BIT);
 	/* 頂点データ，法線データ，テクスチャ座標の配列を有効にする */
 	glEnableClientState(GL_VERTEX_ARRAY);
 
-	setActorMatrix(&mTest);
-	mTest.render();
+	glBindFramebuffer(GL_FRAMEBUFFER, mFboHandle);
+	prog.setUniform("Tex1", 0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	setActorMatrix(&mLight);
 	mLight.render();
 	resetActorMatrix();
 	mTerrain.render();
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	prog.setUniform("Tex1", 0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	mTest.getModelPtr()->getTexturePtr()->forceSetTextureId(mRenderTexture);
+	setActorMatrix(&mTest);
+	mTest.render();
 
 	/* 頂点データ，法線データ，テクスチャ座標の配列を無効にする */
 	glDisableClientState(GL_VERTEX_ARRAY);

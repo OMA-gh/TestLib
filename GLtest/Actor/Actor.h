@@ -13,6 +13,9 @@ public:
 	void setModel(Model* model) {
 		mModel = model;
 	}
+	Model* getModelPtr() {
+		return mModel;
+	}
 
 	const glm::vec3& getPosition() const{
 		return mPosition;

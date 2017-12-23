@@ -36,6 +36,9 @@ public:
 	std::vector<int>* getIndexArrayPtr() {
 		return &mIndexArray;
 	}
+	Texture* getTexturePtr() {
+		return &mTexture;
+	}
 
 protected:
     virtual void setIndexInfo() {};

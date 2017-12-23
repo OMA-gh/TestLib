@@ -38,6 +38,8 @@ public:
     void update( float t );
     void render();
     void resize(int, int);
+	void setFrameBuffer();
+	void setWhiteTextureInfo();
 
 	GLuint getVertHandle() const {
 		return mVertShader;
@@ -60,6 +62,12 @@ protected:
 	GLuint mFragShader;
 	GLuint mProgramHandle;
 	Camera mCamera;
+
+	GLuint mFboHandle;
+	GLuint mRenderTexture;
+	GLuint mDepthBuffer;
+	GLuint mWhiteTexHandle;
+	GLenum mDrawBufs[1];
 
 	Test mTest;
 	Test mLight;

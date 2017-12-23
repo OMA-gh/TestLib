@@ -16,9 +16,9 @@ void Plane::setIndexInfo() {
 	}
 	for (int i = 0; i < 4; i++) {
 		glm::vec3 push_color(
-			0.5f,
-			i*0.1f,
-			1 - i*0.1f
+			1.0f,
+			1.0f,
+			1.0f
 		);
 		glm::vec3 push_normal(
 			0.f,

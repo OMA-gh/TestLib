@@ -31,6 +31,9 @@ public:
 	unsigned char* getImageBitsPtr() {
 		return mpHtMap;
 	}
+	void forceSetTextureId(GLuint id) {
+		mTid = id;
+	}
 	GLuint getTextureId() const{
 		return mTid;
 	}
