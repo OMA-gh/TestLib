@@ -6,11 +6,13 @@ layout( triangle_strip, max_vertices = 3 ) out;
 out vec3 GNormal;
 out vec3 GPosition;
 out vec3 GColor;
+out vec2 GTexCoord;
 noperspective out vec3 GEdgeDistance;
 
 in vec3 VNormal[];
 in vec3 VPosition[];
 in vec3 VColor[];
+in vec2 VTexCoord[];
 
 uniform mat4 ViewportMatrix;  // Viewport matrix
 
@@ -34,6 +36,7 @@ void main()
     GNormal = VNormal[0];
     GPosition = VPosition[0];
     GColor = VColor[0];
+    GTexCoord = VTexCoord[0];
     gl_Position = gl_in[0].gl_Position;
     EmitVertex();
 
@@ -41,6 +44,7 @@ void main()
     GNormal = VNormal[1];
     GPosition = VPosition[1];
     GColor = VColor[1];
+    GTexCoord = VTexCoord[1];
     gl_Position = gl_in[1].gl_Position;
     EmitVertex();
 
@@ -48,6 +52,7 @@ void main()
     GNormal = VNormal[2];
     GPosition = VPosition[2];
     GColor = VColor[2];
+    GTexCoord = VTexCoord[3];
     gl_Position = gl_in[2].gl_Position;
     EmitVertex();
 

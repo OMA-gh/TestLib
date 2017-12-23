@@ -6,7 +6,11 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
+#include "../Dependencies/SOIL2/SOIL2.h"
+
 #include <vector>
+
+#include "Texture.h"
 
 #define BUFFER_OFFSET(bytes) ((GLubyte *)NULL + (bytes))
 
@@ -38,8 +42,10 @@ protected:
 	std::vector<glm::vec3> mPositionArray;
 	std::vector<glm::vec3> mColorArray;
 	std::vector<glm::vec3> mNormalArray;
+	std::vector<glm::vec2> mTexCoordArray;
 	std::vector<int> mIndexArray;
+	Texture mTexture;
 	int mPolygonNum;
-	GLuint mVboHandleArray[4] = {};
+	GLuint mVboHandleArray[5] = {};
 	GLuint mVaoHandle;
 };

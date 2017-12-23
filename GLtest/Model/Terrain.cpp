@@ -129,6 +129,7 @@ void Terrain::setIndexInfo() {
     glm::vec3 push_pos(0);
     glm::vec3 push_color(0);
     glm::vec3 push_normal(0);
+	glm::vec2 push_texcoord(0);
 	for (int i = 0; i < GRID_SIZE; i++) {
 		push_pos.x = (float)FIELD_SIZE / SIZE*(i%SIZE);// x
 		push_pos.z = (float)FIELD_SIZE / SIZE*((int)(i / SIZE));// z
@@ -160,6 +161,7 @@ void Terrain::setIndexInfo() {
         mPositionArray.push_back(push_pos);
         mColorArray.push_back(push_color);
         mNormalArray.push_back(push_normal);
+		mTexCoordArray.push_back(push_texcoord);
 	}
 	for (int i = 0; i < SIZE - 1; i++) {
 		for (int k = 0; k < SIZE - 1; k++) {

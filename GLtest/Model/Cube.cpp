@@ -26,8 +26,13 @@ void Cube::setIndexInfo() {
 			mPositionArray[i].y,
 			mPositionArray[i].z
 		);
+		glm::vec2 push_texcoord(
+			i % 4 / 2,
+			i % 2
+		);
 		mColorArray.push_back(push_color);
 		mNormalArray.push_back(push_normal);
+		mTexCoordArray.push_back(push_texcoord);
 	}
 
 	const int index_array_size = 6 * 2 * 3;
