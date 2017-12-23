@@ -31,6 +31,10 @@ void SceneBasic::initScene()
 	compileAndLinkShader();
 	setFrameBuffer();
 	setWhiteTextureInfo();
+	setFullScreenQuad();
+
+	mPass1Index = glGetSubroutineIndex(prog.getHandle(), GL_FRAGMENT_SHADER, "pass1");
+	mPass2Index = glGetSubroutineIndex(prog.getHandle(), GL_FRAGMENT_SHADER, "pass2");
 	
 	prog.setUniform("Line.Width", 0.75f);
 	prog.setUniform("Line.Color", vec4(0.05f, 0.0f, 0.05f, 1.0f));
@@ -50,6 +54,44 @@ void SceneBasic::initScene()
 	mLight.setModel(&mCube);
 }
 
+void SceneBasic::setFullScreenQuad() {
+	// Array for full-screen quad
+	GLfloat verts[] = {
+		-1.0f, -1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 1.0f, 1.0f, 0.0f,
+		-1.0f, -1.0f, 0.0f, 1.0f, 1.0f, 0.0f, -1.0f, 1.0f, 0.0f
+	};
+	GLfloat tc[] = {
+		0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+		0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f
+	};
+
+	// Set up the buffers
+
+	unsigned int handle[2];
+	glGenBuffers(2, handle);
+
+	glBindBuffer(GL_ARRAY_BUFFER, handle[0]);
+	glBufferData(GL_ARRAY_BUFFER, 6 * 3 * sizeof(float), verts, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, handle[1]);
+	glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(float), tc, GL_STATIC_DRAW);
+
+	// Set up the vertex array object
+
+	glGenVertexArrays(1, &mFullScreenQuad);
+	glBindVertexArray(mFullScreenQuad);
+
+	glBindBuffer(GL_ARRAY_BUFFER, handle[0]);
+	glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, 0, ((GLubyte *)NULL + (0)));
+	glEnableVertexAttribArray(0);  // Vertex position
+
+	glBindBuffer(GL_ARRAY_BUFFER, handle[1]);
+	glVertexAttribPointer((GLuint)3, 2, GL_FLOAT, GL_FALSE, 0, ((GLubyte *)NULL + (0)));
+	glEnableVertexAttribArray(3);  // Texture coordinates
+
+	glBindVertexArray(0);
+}
+
 void SceneBasic::setFrameBuffer() {
 	// create and bind framebuffer
 	glGenFramebuffers(1, &mFboHandle);
@@ -59,7 +101,7 @@ void SceneBasic::setFrameBuffer() {
 	glGenTextures(1, &mRenderTexture);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, mRenderTexture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 512, 512, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 960, 540, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
@@ -69,7 +111,7 @@ void SceneBasic::setFrameBuffer() {
 	//create depth buffer
 	glGenRenderbuffers(1, &mDepthBuffer);
 	glBindRenderbuffer(GL_RENDERBUFFER, mDepthBuffer);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 512, 512);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, 960, 540);
 
 	//bind depthbuffer to fbo
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mDepthBuffer);
@@ -93,22 +135,21 @@ void SceneBasic::setWhiteTextureInfo() {
 
 void SceneBasic::setMatrices()
 {
-	static int count = 0;
-	glm::vec3 light_pos;
-	light_pos = glm::vec3(FIELD_SIZE / 2 * (1 + cos(PI / 180 * count)), 10, FIELD_SIZE / 2 * (1 + sin(PI / 180 * count)));
-	//light_pos = glm::vec3(0.f, 0.f, 0.f);
-	mLight.setPosition(light_pos);
-	mLight.setScale(glm::vec3(1.f));
-	prog.setUniform("Light.Position", light_pos.x, light_pos.y, light_pos.z,1.f);
-
-	glm::mat4 model = glm::mat4(1.0f);  // 各モデルを変える！
-	mat4 mv = getCamera().view * model;
+	mat4 mv = mView * mModel;
 	prog.setUniform("ModelViewMatrix", mv);
 	prog.setUniform("NormalMatrix",
 		mat3(vec3(mv[0]), vec3(mv[1]), vec3(mv[2])));
-	prog.setUniform("MVP",getCamera().perspective * mv);
+	prog.setUniform("MVP",mProjection * mv);
 	prog.setUniform("ViewportMatrix", viewport);
+}
 
+void SceneBasic::setLightPos() {
+	static int count = 0;
+	glm::vec3 light_pos;
+	light_pos = glm::vec3(FIELD_SIZE / 2 * (1 + cos(PI / 180 * count)), 10, FIELD_SIZE / 2 * (1 + sin(PI / 180 * count)));
+	mLight.setPosition(light_pos);
+	mLight.setScale(glm::vec3(1.f));
+	prog.setUniform("Light.Position", light_pos.x, light_pos.y, light_pos.z, 1.f);
 	count++;
 	if (count > 360) {
 		count -= 360;
@@ -168,27 +209,39 @@ void SceneBasic::update( float t )
 
 void SceneBasic::render()
 {
-	setMatrices();
 
 	/* 頂点データ，法線データ，テクスチャ座標の配列を有効にする */
 	glEnableClientState(GL_VERTEX_ARRAY);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, mFboHandle);
-	prog.setUniform("Tex1", 0);
+	prog.setUniform("RenderTex", 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	mModel = glm::mat4(1.f);
+	mView = getCamera().view;
+	mProjection = getCamera().perspective;
+	this->resize(960,540);
+	setMatrices();
+	setLightPos();
+	glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 1, &mPass1Index);
 	setActorMatrix(&mLight);
 	mLight.render();
 	resetActorMatrix();
 	mTerrain.render();
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	prog.setUniform("Tex1", 0);
+	prog.setUniform("RenderTex", 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	mTest.getModelPtr()->getTexturePtr()->forceSetTextureId(mRenderTexture);
-	setActorMatrix(&mTest);
-	mTest.render();
+	mModel = glm::mat4(1.f);
+	mView = glm::mat4(1.f);
+	mProjection = glm::mat4(1.f);
+	viewport = glm::mat4(1.f);
+	setMatrices();
+	glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 1, &mPass2Index);
+	glBindTexture(GL_TEXTURE_2D, mRenderTexture);
+	glBindVertexArray(mFullScreenQuad);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
 
 	/* 頂点データ，法線データ，テクスチャ座標の配列を無効にする */
 	glDisableClientState(GL_VERTEX_ARRAY);

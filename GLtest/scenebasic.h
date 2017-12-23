@@ -27,7 +27,9 @@ private:
     GLuint vaoHandle;
 
 	void compileAndLinkShader();
+	void setFullScreenQuad();
 	void setMatrices();
+	void setLightPos();
 	void setActorMatrix(Actor* actor);
 	void resetActorMatrix();
 
@@ -58,6 +60,8 @@ public:
 	}
 
 protected:
+	glm::mat4 mModel, mView, mProjection;
+
 	GLuint mVertShader;
 	GLuint mFragShader;
 	GLuint mProgramHandle;
@@ -68,6 +72,7 @@ protected:
 	GLuint mDepthBuffer;
 	GLuint mWhiteTexHandle;
 	GLenum mDrawBufs[1];
+	GLuint mFullScreenQuad;
 
 	Test mTest;
 	Test mLight;
@@ -75,6 +80,8 @@ protected:
 	Terrain mTerrain;
 	Plane mPlane;
 	Cube mCube;
+
+	GLuint mPass1Index, mPass2Index;
 };
 
 #endif // SCENEBASIC_H
