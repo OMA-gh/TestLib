@@ -182,6 +182,16 @@ void GLSLProgram::setUniform(const char *name, float x, float y, float z)
 		printf("Uniform: %s not found.\n", name);
 	}
 }
+void GLSLProgram::setUniform(const char *name, float x, float y, float z,float w)
+{
+	int loc = getUniformLocation(name);
+	if (loc >= 0) {
+		glUniform4f(loc, x, y, z, w);
+	}
+	else {
+		printf("Uniform: %s not found.\n", name);
+	}
+}
 
 void GLSLProgram::setUniform(const char *name, const vec3 & v)
 {

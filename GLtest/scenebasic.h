@@ -61,6 +61,7 @@ protected:
 	Camera mCamera;
 
 	Test mTest;
+	Test mLight;
 
 	Terrain mTerrain;
 	Cube mCube;

@@ -31,6 +31,9 @@
     <Filter Include="Actor">
       <UniqueIdentifier>{f1db197b-194c-42dc-9e61-930124524485}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Model\Texture">
+      <UniqueIdentifier>{994763ca-17a9-469a-8378-447f32b4bd06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -63,6 +66,9 @@
     <ClCompile Include="Actor\Actor.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
+    <ClCompile Include="Model\Texture.cpp">
+      <Filter>Model\Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glslprogram.h">
@@ -94,6 +100,9 @@
     </ClInclude>
     <ClInclude Include="Actor\Actor.h">
       <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\Texture.h">
+      <Filter>Model\Texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

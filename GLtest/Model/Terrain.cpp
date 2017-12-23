@@ -78,7 +78,7 @@ float perlin(float x, float y, float z) {
 		u);
 	y2 = Lerp(x1, x2, v);
 
-	return (Lerp(y1, y2, w) + 1) * 0.5;
+	return (Lerp(y1, y2, w) + 1) * 0.5f;
 }
 float perlin(float x, float y) {
 
@@ -104,7 +104,7 @@ float perlin(float x, float y) {
 		grad(bb, xf - 1, yf - 1),
 		u);
 	float n = Lerp(x1, x2, v);
-	return (n + 1) * 0.5;
+	return (n + 1) * 0.5f;
 }
 float OctavePerlin(float x, float y, int octaves, float persistence, float lacunarity) {
 	float total = 0;

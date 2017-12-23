@@ -22,6 +22,7 @@ SceneBasic::SceneBasic()
 	:mTerrain()
 	,mCube()
 	,mTest()
+	,mLight()
 {
 }
 
@@ -39,18 +40,24 @@ void SceneBasic::initScene()
 	prog.setUniform("Light.Ls", 1.0f, 1.0f, 1.0f);
 	prog.setUniform("Material.Shininess", 100.0f);
 
+	prog.setUniform("Tex1", 0);
+
     mCube.init();
     mTerrain.init();
 
 	mTest.setModel(&mCube);
+	mLight.setModel(&mCube);
 }
 
 void SceneBasic::setMatrices()
 {
 	static int count = 0;
 	glm::vec3 light_pos;
-	light_pos = glm::vec3(FIELD_SIZE / 2 * (1 + cos(PI / 180 * count)), 10.f*sin(PI / 180 * count), FIELD_SIZE / 2 * (1 + sin(PI / 180 * count)));
-	prog.setUniform("Light.Position", light_pos.x, light_pos.y, light_pos.z);
+	light_pos = glm::vec3(FIELD_SIZE / 2 * (1 + cos(PI / 180 * count)), 10, FIELD_SIZE / 2 * (1 + sin(PI / 180 * count)));
+	//light_pos = glm::vec3(0.f, 0.f, 0.f);
+	mLight.setPosition(light_pos);
+	mLight.setScale(glm::vec3(1.f));
+	prog.setUniform("Light.Position", light_pos.x, light_pos.y, light_pos.z,1.f);
 
 	glm::mat4 model = glm::mat4(1.0f);  // 各モデルを変える！
 	mat4 mv = getCamera().view * model;
@@ -127,6 +134,8 @@ void SceneBasic::render()
 
 	setActorMatrix(&mTest);
 	mTest.render();
+	setActorMatrix(&mLight);
+	mLight.render();
 	resetActorMatrix();
 	mTerrain.render();
 

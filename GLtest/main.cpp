@@ -167,7 +167,7 @@ void timer(int value) {
 
 	if (top > 0.9F) isUp = GL_FALSE;
 	else if (top <= -0.9F) isUp = GL_TRUE;
-	top += (isUp == GL_TRUE ? 0.01 : -0.01);
+	top += (isUp == GL_TRUE ? 0.01f : -0.01f);
 
 	scene->update(0.f);
 
@@ -184,7 +184,7 @@ int main(int argc, char *argv[])
 		////////////////////////////////////////////////////
 
 		glutInitWindowPosition(100, 100);
-		glutInitWindowSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+		glutInitWindowSize((int)SCREEN_WIDTH, (int)SCREEN_HEIGHT);
 		glutInit(&argc, argv);
 		glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
 		glutCreateWindow(argv[0]);
@@ -202,7 +202,7 @@ int main(int argc, char *argv[])
 
 		scene->initScene();
 	}
-	scene->resize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	scene->resize((int)SCREEN_WIDTH, (int)SCREEN_HEIGHT);
 	glutDisplayFunc(display);
 	glutReshapeFunc(resize);
 	glutKeyboardFunc(keyboard);
@@ -216,7 +216,7 @@ int main(int argc, char *argv[])
 void init() {
 	GLenum err = glewInit();
 	if (GLEW_OK != err) {
-		fprintf(stderr, "GLEW‚Ì‰Šú‰»ƒGƒ‰[F%s\n", glewGetErrorString(err));
+		fprintf(stderr, "GLEW init error:%s\n", glewGetErrorString(err));
 	}
 
 	const GLubyte *renderer = glGetString(GL_RENDERER);
@@ -235,7 +235,7 @@ void init() {
 	printf("GL Version (integer)	:%d.%d\n", major, minor);
 	printf("GLSL Version	:%s\n", glslVersion);
 
-	glClearColor(0.1, 0.1, 0.3, 1.0);
+	glClearColor(0.1f, 0.1f, 0.3f, 1.0f);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_DEPTH_TEST);
