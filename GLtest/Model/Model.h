@@ -22,6 +22,7 @@ public:
     void init();
 	void render() const;
 	void setVertexBufferObject();
+	void setTextureInfo();
 
 	std::vector<glm::vec3>* getPositionArrayPtr() {
 		return &mPositionArray;
@@ -45,6 +46,7 @@ protected:
 	std::vector<glm::vec2> mTexCoordArray;
 	std::vector<int> mIndexArray;
 	Texture mTexture;
+	std::string mTextureName;
 	int mPolygonNum;
 	GLuint mVboHandleArray[5] = {};
 	GLuint mVaoHandle;

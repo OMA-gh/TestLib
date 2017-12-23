@@ -31,8 +31,11 @@ public:
 	unsigned char* getImageBitsPtr() {
 		return mpHtMap;
 	}
-	GLuint& getTextureId() {
+	GLuint getTextureId() const{
 		return mTid;
+	}
+	GLuint* getTextureIdPtr() {
+		return &mTid;
 	}
 	GLuint getColorType() const {
 		return mChannel == 4 ? GL_RGBA : GL_RGB;

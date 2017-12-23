@@ -13,6 +13,7 @@ void Model::init() {
     setIndexInfo();
     mPolygonNum = (int)mIndexArray.size() * sizeof(int);
     setVertexBufferObject();
+	setTextureInfo();
 }
 
 void Model::setVertexBufferObject() {
@@ -41,21 +42,22 @@ void Model::setVertexBufferObject() {
 	glBufferData(GL_ARRAY_BUFFER, mColorArray.size() * sizeof(glm::vec3), &mColorArray.front(), GL_STATIC_DRAW);
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (GLubyte *)NULL);
 	glEnableVertexAttribArray(2);  // Vertex color
-	
+
 	glBindBuffer(GL_ARRAY_BUFFER, texcoordBufferHandle);
 	glBufferData(GL_ARRAY_BUFFER, mTexCoordArray.size() * sizeof(glm::vec2), &mTexCoordArray.front(), GL_STATIC_DRAW);
 	glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 0, (GLubyte *)NULL);
 	glEnableVertexAttribArray(3);  // Vertex texcoord
-	
+
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferHandle);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, mIndexArray.size() * sizeof(int), &mIndexArray.front(), GL_STATIC_DRAW);
 
 	glBindVertexArray(0);
-	
+}
+void Model::setTextureInfo(){
 	//Set Texture
-	mTexture.init("Resources/test.png");
+	mTexture.init(mTextureName.c_str());
 	glActiveTexture(GL_TEXTURE0);
-	glGenTextures(1, &(mTexture.getTextureId()));
+	glGenTextures(1, mTexture.getTextureIdPtr());
 	glBindTexture(GL_TEXTURE_2D, mTexture.getTextureId());
 	glTexImage2D(
 		GL_TEXTURE_2D, 0, mTexture.getColorType(),
@@ -68,6 +70,7 @@ void Model::setVertexBufferObject() {
 }
 
 void Model::render() const{
+	glBindTexture(GL_TEXTURE_2D, mTexture.getTextureId());
 	glBindVertexArray(mVaoHandle);
 	glDrawElements(GL_TRIANGLES, mPolygonNum, GL_UNSIGNED_INT, BUFFER_OFFSET(0));
 }

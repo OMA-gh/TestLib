@@ -2,6 +2,7 @@
 #include "Plane.h"
 
 Plane::Plane() : Model() {
+	mTextureName = "Resources/test.jpg";
 }
 
 void Plane::setIndexInfo() {
