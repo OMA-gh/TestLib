@@ -58,34 +58,6 @@ void Camera::lookAt(glm::vec3 pos, glm::vec3 target, glm::vec3 up)
 	/* �c�� */
 	matrix[3] = matrix[7] = matrix[11] = 0.0f;
 	matrix[15] = 1.0f;
-	/*
-	target.x = pos.x - target.x;
-	target.y = pos.y - target.y;
-	target.z = pos.z - target.z;
-	l = sqrtf(target.x * target.x + target.y * target.y + target.z * target.z);
-	view[0][2] = target.x / l;
-	view[1][2] = target.y / l;
-	view[2][2] = target.z / l;
-
-	target.x = up.y * view[2][2] - up.z * view[1][2];
-	target.y = up.z * view[0][2] - up.x * view[2][2];
-	target.z = up.x * view[1][2] - up.y * view[0][2];
-	l = sqrtf(target.x * target.x + target.y * target.y + target.z * target.z);
-	view[0][0] = target.x / l;
-	view[1][0] = target.y / l;
-	view[2][0] = target.z / l;
-
-	view[0][1] = view[1][2] * view[2][0] - view[2][2] * view[1][0];
-	view[1][1] = view[2][2] * view[0][0] - view[0][2] * view[2][0];
-	view[2][1] = view[0][2] * view[1][0] - view[1][2] * view[0][0];
-
-	view[3][0] = -(pos.x * view[0][0] + pos.y * view[1][0] + pos.z * view[2][0]);
-	view[3][1] = -(pos.x * view[0][1] + pos.y * view[1][1] + pos.z * view[2][1]);
-	view[3][2] = -(pos.x * view[0][2] + pos.y * view[1][2] + pos.z * view[2][2]);
-
-	view[0][3] = view[1][3] = view[2][3] = 0.0f;
-	view[3][3] = 1.0f;
-	*/
 }
 
 void Camera::perspectiveMatrix(float left, float right,	float bottom, float top,float near_val, float far_val)
