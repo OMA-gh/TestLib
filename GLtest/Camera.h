@@ -21,7 +21,6 @@ public:
 
 	void lookAt(glm::vec3 pos, glm::vec3 target, glm::vec3 up);
 	static glm::mat4 calcViewMatrix(glm::vec3 pos, glm::vec3 target, glm::vec3 up);
-	void perspectiveMatrix(float left, float right, float bottom, float top, float near_val, float far_val);
 	void cameraMatrix(float fovy, float aspect, float near_val, float far_val);
 	static glm::mat4 calcPerspectiveMatrix(float fovy, float aspect, float near_val, float far_val);
 

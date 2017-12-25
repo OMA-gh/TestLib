@@ -101,23 +101,6 @@ glm::mat4 Camera::calcViewMatrix(glm::vec3 pos, glm::vec3 target, glm::vec3 up)
 	return ret_mat;
 }
 
-void Camera::perspectiveMatrix(float left, float right,	float bottom, float top,float near_val, float far_val)
-{
-	float dx = right - left;
-	float dy = top - bottom;
-	float dz = far_val - near_val;
-
-	perspective[0][0] = 2.0f * near_val / dx;
-	perspective[1][1] = 2.0f * near_val / dy;
-	perspective[2][0] = (right + left) / dx;
-	perspective[2][1] = (top + bottom) / dy;
-	perspective[2][2] = -(far_val + near_val) / dz;
-	perspective[2][3] = -1.0f;
-	perspective[3][2] = -2.0f * far_val * near_val / dz;
-	perspective[0][1] = perspective[0][2] = perspective[0][3] = perspective[1][0] =
-		perspective[1][2] = perspective[1][3] = perspective[3][0] = perspective[3][1] = perspective[3][3] = 0.0f;
-}
-
 void Camera::cameraMatrix(float fovy, float aspect, float near_val, float far_val)
 {
 	float f = 1.0f / tanf(fovy * 0.5f * 3.141593f / 180.0f);
