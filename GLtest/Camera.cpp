@@ -12,6 +12,14 @@ void Camera::update() {
 	x = mTargetPos.x +cos(PI / 180 * angleH)*20.f;
 	y = mTargetPos.y + sin(PI / 180 * angleY)*20.f;
 	z = mTargetPos.z +sin(PI / 180 * angleH)*20.f;
+
+	cameraMatrix(fovy, 960 / 540, 0.1f, 200.0f);
+	// カメラ行列
+	lookAt(
+		glm::vec3(x, y, z), // ワールド空間でカメラは(4,3,3)にあります。
+		mTargetPos, // 
+		glm::vec3(0, 1, 0)  // 頭が上方向(0,-1,0にセットすると上下逆転します。)
+	);
 }
 
 void Camera::lookAt(glm::vec3 pos, glm::vec3 target, glm::vec3 up)

@@ -36,13 +36,6 @@ void display(void)
 	/* 画面クリア */
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	scene->getCameraPtr()->cameraMatrix(scene->getCamera().fovy, SCREEN_WIDTH/SCREEN_HEIGHT, 0.1f, 200.0f);
-	// カメラ行列
-	scene->getCameraPtr()->lookAt(
-		glm::vec3(scene->getCamera().x, scene->getCamera().y, scene->getCamera().z), // ワールド空間でカメラは(4,3,3)にあります。
-		scene->getCamera().mTargetPos, // 
-		glm::vec3(0, 1, 0)  // 頭が上方向(0,-1,0にセットすると上下逆転します。)
-	);
 	scene->render();
 
 	/* ダブルバッファリング */
