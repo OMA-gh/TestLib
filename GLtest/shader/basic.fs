@@ -4,11 +4,13 @@ in vec3 GPosition;
 in vec3 GNormal;
 in vec3 GColor;
 in vec2 GTexCoord;
+in vec4 GShadowCoord;
 noperspective in vec3 GEdgeDistance;
 
 uniform sampler2D RenderTex;
+uniform sampler2DShadow ShadowMap;
 
-subroutine vec4 RenderPassType();
+subroutine void RenderPassType();
 subroutine uniform RenderPassType RenderPass;
 
 struct LightInfo{
@@ -34,7 +36,7 @@ uniform struct LineInfo {
 
 layout( location = 0 ) out vec4 FragColor;
 
-void phongModel(out vec3 outAmbAndDiff,out vec3 outSpec){
+void phongModel(out vec3 outAmb, out vec3 outDiff,out vec3 outSpec){
     vec3 s = normalize(vec3(Light.Position - GPosition));
 	float light_dist = length(Light.Position-GPosition);
 	vec3 v = normalize(-GPosition.xyz);
@@ -46,11 +48,13 @@ void phongModel(out vec3 outAmbAndDiff,out vec3 outSpec){
 	if(sDotN>0.0){
 		spec = Light.Ls * Material.Ks * pow( max( dot(r,v), 0.0), Material.Shininess);
 	}
-	outAmbAndDiff = ambient + diffuse;
+	
+	outAmb = ambient;
+	outDiff = diffuse;
 	outSpec = spec;
 }
 subroutine (RenderPassType)
-vec4 pass1()
+void pass1()
 {
 	// Find the smallest distance
     float d = min( GEdgeDistance.x, GEdgeDistance.y );
@@ -67,12 +71,20 @@ vec4 pass1()
     }
 	mixVal=0.0;
     
+	float shadow = textureProj(ShadowMap,GShadowCoord);
 	
-	vec3 ambAndDiff, spec;
-	phongModel(ambAndDiff,spec);
+	vec3 amb, diff, spec;
+	phongModel(amb, diff,spec);
 	vec4 texColor = texture(RenderTex,GTexCoord);
+	//vec4 texColor = texture(ShadowMap,GTexCoord);
+	
+	//FragColor = vec4((diff+spec) + amb,1.0);
+	//FragColor = vec4((diff+spec)*shadow + amb,1.0);
+	FragColor = vec4(((diff*shadow)+amb)*texColor + spec*shadow,1.0);
+	//FragColor = vec4(1.0)*shadow;
+	
 	//FragColor = mix( vec4(phongModel(), 1.0), Line.Color, mixVal );
-	return vec4(ambAndDiff, 1.0) * texColor + vec4(spec, 1.0);
+	//FragColor = vec4(amb+diff, 1.0) * texColor + vec4(spec, 1.0);
 	//FragColor = texColor;
 	//FragColor = mix( texColor, Line.Color, mixVal );
 }
@@ -82,32 +94,17 @@ float luminance( vec3 color ) {
 }
 
 subroutine( RenderPassType )
-vec4 pass2()
+void pass2()
 {
-    float dx = 1.0 / 960.0;
-    float dy = 1.0 / 540.0;
+	FragColor = texture( RenderTex, GTexCoord );
+}
 
-    float s00 = luminance(texture( RenderTex, GTexCoord + vec2(-dx,dy) ).rgb);
-    float s10 = luminance(texture( RenderTex, GTexCoord + vec2(-dx,0.0) ).rgb);
-    float s20 = luminance(texture( RenderTex, GTexCoord + vec2(-dx,-dy) ).rgb);
-    float s01 = luminance(texture( RenderTex, GTexCoord + vec2(0.0,dy) ).rgb);
-    float s21 = luminance(texture( RenderTex, GTexCoord + vec2(0.0,-dy) ).rgb);
-    float s02 = luminance(texture( RenderTex, GTexCoord + vec2(dx, dy) ).rgb);
-    float s12 = luminance(texture( RenderTex, GTexCoord + vec2(dx, 0.0) ).rgb);
-    float s22 = luminance(texture( RenderTex, GTexCoord + vec2(dx, -dy) ).rgb);
-
-    float sx = s00 + 2 * s10 + s20 - (s02 + 2 * s12 + s22);
-    float sy = s00 + 2 * s01 + s02 - (s20 + 2 * s21 + s22);
-
-    float dist = sx * sx + sy * sy;
-	float EdgeThreshold = 0.1;
-
-    if( dist > EdgeThreshold )
-        return vec4(1.0);
-    else
-        return vec4(0.0,0.0,0.0,1.0);
+subroutine( RenderPassType )
+void recordDepth()
+{
+    // Do nothing, depth will be written automatically
 }
 
 void main() {
-	FragColor = RenderPass();
+	RenderPass();
 }

@@ -136,8 +136,8 @@ void Terrain::setIndexInfo() {
 		push_pos.z = (float)FIELD_SIZE / SIZE*((int)(i / SIZE));// z
 		float x = push_pos.x / 255.f;
 		float z = push_pos.z / 255.f;
-		push_pos.y = OctavePerlin(push_pos.x, push_pos.z, 8, 0.8f, 0.4f);// y
-		float y = push_pos.y;
+		push_pos.y = OctavePerlin(push_pos.x, push_pos.z, 8, 0.8f, 0.4f) * 2;// y
+		float y = push_pos.y / 2;
 		if (y < 0.41) {
 			push_color.x = 0.8f;
 			push_color.y = 0.5f;

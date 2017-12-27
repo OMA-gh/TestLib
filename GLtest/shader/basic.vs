@@ -9,10 +9,12 @@ out vec3 VPosition;
 out vec3 VNormal;
 out vec3 VColor;
 out vec2 VTexCoord;
+out vec4 VShadowCoord;
 
 uniform mat4 ModelViewMatrix;
 uniform mat3 NormalMatrix;
 uniform mat4 MVP;
+uniform mat4 ShadowMatrix;
 
 uniform vec3 ObjectPosition;
 uniform vec3 ObjectScale;
@@ -26,5 +28,6 @@ void main()
     VPosition = vec3(ModelViewMatrix * vec4(pos,1.0));
 	VColor = VertexColor;
 	VTexCoord = VertexTexCoord;
+    VShadowCoord = ShadowMatrix * vec4(pos,1.0);
     gl_Position = MVP * vec4(pos,1.0);
 }

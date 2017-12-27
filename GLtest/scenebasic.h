@@ -67,6 +67,11 @@ protected:
 	GLuint mProgramHandle;
 	Camera mCamera;
 
+	//shadow map
+	GLuint mShadowFbo;
+	int mShadowWidth, mShadowHeight;
+	GLuint mDepthTex;
+
 	GLuint mFboHandle;
 	GLuint mRenderTexture;
 	GLuint mDepthBuffer;
@@ -81,7 +86,7 @@ protected:
 	Plane mPlane;
 	Cube mCube;
 
-	GLuint mPass1Index, mPass2Index;
+	GLuint mPass1Index, mPass2Index, mShadowPassIndex;
 };
 
 #endif // SCENEBASIC_H

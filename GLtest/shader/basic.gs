@@ -7,12 +7,14 @@ out vec3 GNormal;
 out vec3 GPosition;
 out vec3 GColor;
 out vec2 GTexCoord;
+out vec4 GShadowCoord;
 noperspective out vec3 GEdgeDistance;
 
 in vec3 VNormal[];
 in vec3 VPosition[];
 in vec3 VColor[];
 in vec2 VTexCoord[];
+in vec4 VShadowCoord[];
 
 uniform mat4 ViewportMatrix;  // Viewport matrix
 
@@ -37,6 +39,7 @@ void main()
     GPosition = VPosition[0];
     GColor = VColor[0];
     GTexCoord = VTexCoord[0];
+    GShadowCoord = VShadowCoord[0];
     gl_Position = gl_in[0].gl_Position;
     EmitVertex();
 
@@ -45,6 +48,7 @@ void main()
     GPosition = VPosition[1];
     GColor = VColor[1];
     GTexCoord = VTexCoord[1];
+    GShadowCoord = VShadowCoord[1];
     gl_Position = gl_in[1].gl_Position;
     EmitVertex();
 
@@ -53,6 +57,7 @@ void main()
     GPosition = VPosition[2];
     GColor = VColor[2];
     GTexCoord = VTexCoord[2];
+    GShadowCoord = VShadowCoord[2];
     gl_Position = gl_in[2].gl_Position;
     EmitVertex();
 
