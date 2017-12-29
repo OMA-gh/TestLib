@@ -123,7 +123,7 @@ float OctavePerlin(float x, float y, int octaves, float persistence, float lacun
 }
 
 Terrain::Terrain() : Model(){
-	mTextureName = "Resources/terrain.png";
+	mTextureName = "terrain.png";
 }
 
 void Terrain::setIndexInfo() {

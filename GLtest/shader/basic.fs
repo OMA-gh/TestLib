@@ -37,8 +37,8 @@ uniform struct LineInfo {
 layout( location = 0 ) out vec4 FragColor;
 
 void phongModel(out vec3 outAmb, out vec3 outDiff,out vec3 outSpec){
-    vec3 s = normalize(vec3(Light.Position - GPosition));
-	float light_dist = length(Light.Position-GPosition);
+    vec3 s = normalize(vec3(Light.Position) - GPosition);
+	float light_dist = length(vec3(Light.Position)-GPosition);
 	vec3 v = normalize(-GPosition.xyz);
 	vec3 r = reflect( -s, GNormal);
 	vec3 ambient = Light.La * Material.Ka;
@@ -71,7 +71,14 @@ void pass1()
     }
 	mixVal=0.0;
     
-	float shadow = textureProj(ShadowMap,GShadowCoord);
+    float sum = 0;
+    sum += textureProjOffset(ShadowMap,GShadowCoord,ivec2(-1,-1));
+    sum += textureProjOffset(ShadowMap,GShadowCoord,ivec2(-1,1));
+    sum += textureProjOffset(ShadowMap,GShadowCoord,ivec2(1,1));
+    sum += textureProjOffset(ShadowMap,GShadowCoord,ivec2(1,-1));
+    float shadow = sum*0.25;
+
+	//ifloat shadow = textureProj(ShadowMap,GShadowCoord);
 	
 	vec3 amb, diff, spec;
 	phongModel(amb, diff,spec);
@@ -80,11 +87,11 @@ void pass1()
 	
 	//FragColor = vec4((diff+spec) + amb,1.0);
 	//FragColor = vec4((diff+spec)*shadow + amb,1.0);
-	FragColor = vec4(((diff*shadow)+amb)*texColor + spec*shadow,1.0);
+	//FragColor = vec4(((diff*shadow)+amb)*texColor + spec*shadow,1.0);
 	//FragColor = vec4(1.0)*shadow;
 	
 	//FragColor = mix( vec4(phongModel(), 1.0), Line.Color, mixVal );
-	//FragColor = vec4(amb+diff, 1.0) * texColor + vec4(spec, 1.0);
+	FragColor = vec4(amb+diff, 1.0) * texColor + vec4(spec, 1.0);
 	//FragColor = texColor;
 	//FragColor = mix( texColor, Line.Color, mixVal );
 }

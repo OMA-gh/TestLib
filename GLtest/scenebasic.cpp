@@ -107,8 +107,8 @@ void SceneBasic::setFrameBuffer() {
 	glBindTexture(GL_TEXTURE_2D, mDepthTex);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, mShadowWidth,
 		mShadowHeight, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, NULL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border);
@@ -199,7 +199,7 @@ void SceneBasic::setLightPos() {
 	mLight.setPosition(light_pos);
 	mLight.setScale(glm::vec3(1.f));
 	prog.setUniform("Light.Position", light_pos.x, light_pos.y, light_pos.z, 1.f);
-	count++;
+	//count++;
 	if (count > 360) {
 		count -= 360;
 	}
@@ -258,7 +258,6 @@ void SceneBasic::update( float t )
 
 void SceneBasic::render()
 {
-
 	/* 頂点データ，法線データ，テクスチャ座標の配列を有効にする */
 	glEnableClientState(GL_VERTEX_ARRAY);
 	
@@ -277,8 +276,8 @@ void SceneBasic::render()
 	glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 1, &mShadowPassIndex);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_FRONT);
-	setActorMatrix(&mLight);
-	mLight.render();
+	//setActorMatrix(&mLight);
+	//mLight.render();
 	resetActorMatrix();
 	mTerrain.render();
 	setActorMatrix(&mTest);

@@ -1,5 +1,7 @@
 #include "Texture.h"
 
+#define TEXTURE_DIR "Resources/"
+
 Texture::Texture() {
 	mpHtMap = nullptr;
 }
@@ -8,7 +10,7 @@ Texture::~Texture() {
 }
 
 void Texture::init(const std::string& file_name) {
-	mFileName = file_name;
+	mFileName = TEXTURE_DIR + file_name;
 	mpHtMap = SOIL_load_image(
 		mFileName.c_str(),
 		&mWidth, &mHeight, &mChannel, 0);

@@ -34,6 +34,9 @@
     <Filter Include="Model\Texture">
       <UniqueIdentifier>{994763ca-17a9-469a-8378-447f32b4bd06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="System">
+      <UniqueIdentifier>{0dd8aee0-892e-40d5-9a04-f52c5d534bf9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -72,6 +75,9 @@
     <ClCompile Include="Model\Plane.cpp">
       <Filter>Model</Filter>
     </ClCompile>
+    <ClCompile Include="System\TextureMgr.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glslprogram.h">
@@ -109,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="Model\Plane.h">
       <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="System\TextureMgr.h">
+      <Filter>System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
