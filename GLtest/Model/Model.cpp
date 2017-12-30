@@ -55,22 +55,22 @@ void Model::setVertexBufferObject() {
 }
 void Model::setTextureInfo(){
 	//Set Texture
-	mTexture.init(mTextureName.c_str());
-	glActiveTexture(GL_TEXTURE0);
-	glGenTextures(1, mTexture.getTextureIdPtr());
-	glBindTexture(GL_TEXTURE_2D, mTexture.getTextureId());
+    mpTexture = GET_INSTANCE(TextureMgr)->load(mTextureName);
+    glActiveTexture(GL_TEXTURE0);
+	glGenTextures(1, mpTexture->getTextureIdPtr());
+	glBindTexture(GL_TEXTURE_2D, mpTexture->getTextureId());
 	glTexImage2D(
-		GL_TEXTURE_2D, 0, mTexture.getColorType(),
-		mTexture.getWidth(), mTexture.getHeight(),
-		0, mTexture.getColorType(), GL_UNSIGNED_BYTE,
-		mTexture.getImageBitsPtr()
+		GL_TEXTURE_2D, 0, mpTexture->getColorType(),
+		mpTexture->getWidth(), mpTexture->getHeight(),
+		0, mpTexture->getColorType(), GL_UNSIGNED_BYTE,
+		mpTexture->getImageBitsPtr()
 	);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 }
 
 void Model::render() const{
-	glBindTexture(GL_TEXTURE_2D, mTexture.getTextureId());
+	glBindTexture(GL_TEXTURE_2D, mpTexture->getTextureId());
 	glBindVertexArray(mVaoHandle);
 	glDrawElements(GL_TRIANGLES, mPolygonNum, GL_UNSIGNED_INT, BUFFER_OFFSET(0));
 }

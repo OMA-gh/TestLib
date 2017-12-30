@@ -10,6 +10,7 @@
 
 #include <vector>
 
+#include "../System/Manager.h"
 #include "Texture.h"
 
 #define BUFFER_OFFSET(bytes) ((GLubyte *)NULL + (bytes))
@@ -37,7 +38,7 @@ public:
 		return &mIndexArray;
 	}
 	Texture* getTexturePtr() {
-		return &mTexture;
+		return mpTexture;
 	}
 
 protected:
@@ -48,7 +49,7 @@ protected:
 	std::vector<glm::vec3> mNormalArray;
 	std::vector<glm::vec2> mTexCoordArray;
 	std::vector<int> mIndexArray;
-	Texture mTexture;
+	Texture* mpTexture;
 	std::string mTextureName;
 	int mPolygonNum;
 	GLuint mVboHandleArray[5] = {};
