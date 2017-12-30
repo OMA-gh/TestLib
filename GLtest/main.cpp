@@ -6,6 +6,7 @@
 #include <glm/glm.hpp>
 #include "scene.h"
 #include "scenebasic.h"
+#include "System\Manager.h"
 
 void init();
 
@@ -192,6 +193,7 @@ int main(int argc, char *argv[])
 		GLUtils::dumpGLInfo();
 
 		init();
+        createInstance();
 
 		scene->initScene();
 	}

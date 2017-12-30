@@ -1,5 +1,6 @@
 #include "TextureMgr.h"
 
+TextureMgr *TextureMgr::s_pInstance = nullptr;
 
 TextureMgr::TextureMgr() {
 };

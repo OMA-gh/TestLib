@@ -142,6 +142,8 @@
     <ClInclude Include="Model\Texture.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="scenebasic.h" />
+    <ClInclude Include="System\Manager.h" />
+    <ClInclude Include="System\Singleton.h" />
     <ClInclude Include="System\TextureMgr.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,12 +1,16 @@
 #pragma once
 
-#include "../Model/Texture.h"
 #include <vector>
 #include <unordered_map>
 #include <memory>
 
+#include "Singleton.h"
+#include "../Model/Texture.h"
 
-class TextureMgr {
+class TextureMgr : public Singleton<TextureMgr> {
+public:
+    friend class Singleton<TextureMgr>;//Singletonでのインスタンス作成は許可
+
 public:
     TextureMgr();
     ~TextureMgr();
