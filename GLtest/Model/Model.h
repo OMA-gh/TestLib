@@ -10,7 +10,7 @@
 
 #include <vector>
 
-#include "../System/Manager.h"
+//#include "../System/Manager.h"
 #include "Texture.h"
 
 #define BUFFER_OFFSET(bytes) ((GLubyte *)NULL + (bytes))
@@ -23,7 +23,7 @@ public:
     void init();
 	void render() const;
 	void setVertexBufferObject();
-	void setTextureInfo();
+	void setTextureInfo(Texture* texture);
 
 	std::vector<glm::vec3>* getPositionArrayPtr() {
 		return &mPositionArray;
@@ -40,6 +40,9 @@ public:
 	Texture* getTexturePtr() {
 		return mpTexture;
 	}
+    std::string& getTextureName() {
+        return mTextureName;
+    }
 
 protected:
     virtual void setIndexInfo() {};

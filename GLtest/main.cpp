@@ -193,7 +193,8 @@ int main(int argc, char *argv[])
 		GLUtils::dumpGLInfo();
 
 		init();
-        createInstance();
+        //createInstance<TextureMgr>();
+        TextureMgr::Create();
 
 		scene->initScene();
 	}

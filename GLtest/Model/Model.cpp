@@ -13,7 +13,7 @@ void Model::init() {
     setIndexInfo();
     mPolygonNum = (int)mIndexArray.size() * sizeof(int);
     setVertexBufferObject();
-	setTextureInfo();
+	//setTextureInfo();
 }
 
 void Model::setVertexBufferObject() {
@@ -53,9 +53,10 @@ void Model::setVertexBufferObject() {
 
 	glBindVertexArray(0);
 }
-void Model::setTextureInfo(){
+void Model::setTextureInfo(Texture* texture){
 	//Set Texture
-    mpTexture = GET_INSTANCE(TextureMgr)->load(mTextureName);
+    //mpTexture = GET_INSTANCE(TextureMgr)->load(mTextureName);
+    mpTexture = texture;
     glActiveTexture(GL_TEXTURE0);
 	glGenTextures(1, mpTexture->getTextureIdPtr());
 	glBindTexture(GL_TEXTURE_2D, mpTexture->getTextureId());

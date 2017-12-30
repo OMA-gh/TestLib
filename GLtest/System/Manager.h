@@ -4,11 +4,15 @@
 
 #include "Singleton.h"
 #include "TextureMgr.h"
-
-static void createInstance() {
-    TextureMgr::Create();
+#include "ActorMgr.h"
+/*
+template<typename T>
+void createInstance<T>() {
+    T::Create();
 }
 
-static void destroyInstance() {
-    TextureMgr::Destroy();
+template<typename T>
+void destroyInstance<T>() {
+    T::Destroy();
 }
+*/

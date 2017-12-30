@@ -1,5 +1,6 @@
 ﻿#include <glm\glm.hpp>
 #include "scenebasic.h"
+#include "System\Manager.h"
 
 #include <cstdio>
 #include <cstdlib>
@@ -49,8 +50,11 @@ void SceneBasic::initScene()
 	prog.setUniform("Material.Shininess", 100.0f);
 
 	mPlane.init();
+    mPlane.setTextureInfo(GET_INSTANCE(TextureMgr)->load(mPlane.getTextureName()));
     mCube.init();
+    mCube.setTextureInfo(GET_INSTANCE(TextureMgr)->load(mPlane.getTextureName()));
     mTerrain.init();
+    mTerrain.setTextureInfo(GET_INSTANCE(TextureMgr)->load(mPlane.getTextureName()));
 
 	mTest.setModel(&mPlane);
 	mLight.setModel(&mCube);

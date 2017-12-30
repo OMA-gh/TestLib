@@ -78,6 +78,9 @@
     <ClCompile Include="System\TextureMgr.cpp">
       <Filter>System</Filter>
     </ClCompile>
+    <ClCompile Include="System\ActorMgr.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glslprogram.h">
@@ -123,6 +126,9 @@
       <Filter>System</Filter>
     </ClInclude>
     <ClInclude Include="System\Manager.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\ActorMgr.h">
       <Filter>System</Filter>
     </ClInclude>
   </ItemGroup>
