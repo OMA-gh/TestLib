@@ -185,7 +185,7 @@ void SceneBasic::setMatrices()
 	);
 
 	glm::mat4 lightPV(0);
-	mView = Camera::calcViewMatrix(mLight.getPosition(), glm::vec3(FIELD_SIZE / 2, 8, FIELD_SIZE / 2), glm::vec3(0, 1, 0));
+	mView = Camera::calcViewMatrix(mLight.getPosition(), glm::vec3(FIELD_SIZE / 2, 10, FIELD_SIZE / 2), glm::vec3(0, 1, 0));
 	mProjection = Camera::calcPerspectiveMatrix(50.0f, 1.0f, 0.1f, 200.0f);
 	lightPV = shadowBias * mProjection * mView;
 	prog.setUniform("ShadowMatrix", lightPV * mModel);
@@ -195,7 +195,7 @@ void SceneBasic::setLightPos() {
 	static int count = 0;
 	glm::vec3 light_pos;
 	const glm::vec3 light_center(FIELD_SIZE / 2, 0, FIELD_SIZE / 2);
-	light_pos = light_center + glm::vec3(FIELD_SIZE * cos(PI / 180 * count), 15, FIELD_SIZE * sin(PI / 180 * count));
+	light_pos = light_center + glm::vec3(FIELD_SIZE * cos(PI / 180 * count), 30, FIELD_SIZE * sin(PI / 180 * count));
 	mLight.setPosition(light_pos);
 	mLight.setScale(glm::vec3(1.f));
 	prog.setUniform("Light.Position", light_pos.x, light_pos.y, light_pos.z, 1.f);
