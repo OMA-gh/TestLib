@@ -117,8 +117,8 @@ void SceneBasic::setFrameBuffer() {
 
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, mDepthTex, 0);
 
-	GLenum drawBuffers[] = { GL_NONE };
-	glDrawBuffers(1, drawBuffers);
+	GLenum shadow_draw_buffers[] = { GL_NONE };
+	glDrawBuffers(1, shadow_draw_buffers);
 
 	// create and bind framebuffer
 	glGenFramebuffers(1, &mFboHandle);
@@ -145,8 +145,8 @@ void SceneBasic::setFrameBuffer() {
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, mDepthBuffer);
 
 	//set fragment shader target
-	mDrawBufs[0] = GL_COLOR_ATTACHMENT0;
-	glDrawBuffers(1, mDrawBufs);
+    GLenum draw_bufs[] = { GL_COLOR_ATTACHMENT0 };
+	glDrawBuffers(1, draw_bufs);
 
 	//unbind framebuffer
 	GLenum result = glCheckFramebufferStatus(GL_FRAMEBUFFER);
@@ -176,7 +176,7 @@ void SceneBasic::setMatrices()
 	prog.setUniform("NormalMatrix",
 		mat3(vec3(mv[0]), vec3(mv[1]), vec3(mv[2])));
 	prog.setUniform("MVP",mProjection * mv);
-	prog.setUniform("ViewportMatrix", viewport);
+	prog.setUniform("ViewportMatrix", mViewport);
 
 	const glm::mat4 shadowBias = mat4(vec4(0.5f, 0.0f, 0.0f, 0.0f),
 		vec4(0.0f, 0.5f, 0.0f, 0.0f),
@@ -318,7 +318,7 @@ void SceneBasic::render()
 	mModel = glm::mat4(1.f);
 	mView = glm::mat4(1.f);
 	mProjection = glm::mat4(1.f);
-	viewport = glm::mat4(1.f);
+	mViewport = glm::mat4(1.f);
 	setMatrices();
 	glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 1, &mPass2Index);
 	glBindTexture(GL_TEXTURE_2D, mRenderTexture);
@@ -333,12 +333,12 @@ void SceneBasic::render()
 void SceneBasic::resize(int w, int h)
 {
     glViewport(0,0,w,h);
-	width = w;
-	height = h;
+	mWidth = w;
+	mHeight = h;
 
-	float w2 = width / 2.0f;
-	float h2 = height / 2.0f;
-	viewport = mat4(vec4(w2, 0.0f, 0.0f, 0.0f),
+	float w2 = mWidth / 2.0f;
+	float h2 = mHeight / 2.0f;
+	mViewport = mat4(vec4(w2, 0.0f, 0.0f, 0.0f),
 		vec4(0.0f, h2, 0.0f, 0.0f),
 		vec4(0.0f, 0.0f, 1.0f, 0.0f),
 		vec4(w2 + 0, h2 + 0, 0.0f, 1.0f));

@@ -22,9 +22,9 @@ class SceneBasic : public Scene
 private:
 	GLSLProgram prog;
 
-    int width, height;
-	mat4 viewport;
-    GLuint vaoHandle;
+    int mWidth, mHeight;//スクリーンのサイズ
+	mat4 mViewport;
+    GLuint mVaoHandle;
 
 	void compileAndLinkShader();
 	void setFullScreenQuad();
@@ -76,7 +76,6 @@ protected:
 	GLuint mRenderTexture;
 	GLuint mDepthBuffer;
 	GLuint mWhiteTexHandle;
-	GLenum mDrawBufs[1];
 	GLuint mFullScreenQuad;
 
 	Test mTest;
