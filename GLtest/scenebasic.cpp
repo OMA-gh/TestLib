@@ -167,6 +167,8 @@ void SceneBasic::setWhiteTextureInfo() {
 	glGenTextures(1, &mWhiteTexHandle);
 	glBindTexture(GL_TEXTURE_2D, mWhiteTexHandle);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, whiteTex);
+
+    glActiveTexture(GL_TEXTURE0);
 }
 
 void SceneBasic::setMatrices()
@@ -178,7 +180,8 @@ void SceneBasic::setMatrices()
 	prog.setUniform("MVP",mProjection * mv);
 	prog.setUniform("ViewportMatrix", mViewport);
 
-	const glm::mat4 shadowBias = mat4(vec4(0.5f, 0.0f, 0.0f, 0.0f),
+	const glm::mat4 shadowBias = mat4(
+        vec4(0.5f, 0.0f, 0.0f, 0.0f),
 		vec4(0.0f, 0.5f, 0.0f, 0.0f),
 		vec4(0.0f, 0.0f, 0.5f, 0.0f),
 		vec4(0.5f, 0.5f, 0.5f, 1.0f)
@@ -240,13 +243,17 @@ void SceneBasic::compileAndLinkShader()
 			prog.log().c_str());
 	}
 
-	if (!prog.validate())
-	{
-		printf("Program failed to validate!\n%s",
-			prog.log().c_str());
-	}
-
 	prog.use();
+
+    prog.setUniform("ShadowMap", 2);
+    prog.setUniform("RenderTex", 0);
+
+    if (!prog.validate())
+    {
+        printf("Program failed to validate!\n%s",
+            prog.log().c_str());
+    }
+
 }
 
 void SceneBasic::update( float t )
