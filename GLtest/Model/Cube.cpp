@@ -2,7 +2,7 @@
 #include "Cube.h"
 
 Cube::Cube() : Model() {
-	mTextureName = "Resources/test.jpg";
+	mTextureName = "test.jpg";
 }
 
 void Cube::setIndexInfo() {
