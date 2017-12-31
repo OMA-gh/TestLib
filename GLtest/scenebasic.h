@@ -78,8 +78,8 @@ protected:
 	GLuint mWhiteTexHandle;
 	GLuint mFullScreenQuad;
 
-	Test mTest;
-	Test mLight;
+	//Test mTest;
+	//Test mLight;
 
 	Terrain mTerrain;
 	Plane mPlane;

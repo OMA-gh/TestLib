@@ -195,6 +195,7 @@ int main(int argc, char *argv[])
 		init();
         //createInstance<TextureMgr>();
         TextureMgr::Create();
+        ActorMgr::Create();
 
 		scene->initScene();
 	}

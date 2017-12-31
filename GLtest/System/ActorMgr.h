@@ -18,9 +18,10 @@ public:
     ~ActorMgr();
 
     void update();
-    bool AddActor(std::unique_ptr<Actor>& actor);
+    bool requestCreateActor(std::string actor_name, Model* model);
+    Actor* getActorPtr(std::string actor_name);
     bool Clear();
 
 private:
-    std::vector<std::unique_ptr<Actor>> mActorPtrArray;
+    std::unordered_map<std::string, std::unique_ptr<Actor>> mActorPtrArray;
 };
