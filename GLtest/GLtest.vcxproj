@@ -128,6 +128,7 @@
     <ClCompile Include="Model\Texture.cpp" />
     <ClCompile Include="scenebasic.cpp" />
     <ClCompile Include="System\ActorMgr.cpp" />
+    <ClCompile Include="System\Render.cpp" />
     <ClCompile Include="System\TextureMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +146,7 @@
     <ClInclude Include="scenebasic.h" />
     <ClInclude Include="System\ActorMgr.h" />
     <ClInclude Include="System\Manager.h" />
+    <ClInclude Include="System\Render.h" />
     <ClInclude Include="System\Singleton.h" />
     <ClInclude Include="System\TextureMgr.h" />
   </ItemGroup>

@@ -3,6 +3,8 @@
 
 #define PI 3.14159265359
 
+Camera *Camera::s_pInstance = nullptr;
+
 void Camera::update() {
 	if (angleH < 0)angleH += 360;
 	if (angleH > 360)angleH -= 360;

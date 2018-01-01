@@ -2,7 +2,12 @@
 #include <gl/GL/glut.h>
 #include <glm/glm.hpp>
 
-class Camera {
+#include "System\Singleton.h"
+
+class Camera : public Singleton<Camera> {
+public:
+    friend class Singleton<Camera>;//Singletonでのインスタンス作成は許可
+
 public:
 	Camera() {
 		x = y = z = 0;

@@ -20,6 +20,9 @@ public:
     void update();
     bool requestCreateActor(std::string actor_name, Model* model);
     Actor* getActorPtr(std::string actor_name);
+    const std::unordered_map<std::string, std::unique_ptr<Actor>>& getActorArray() const {
+        return mActorPtrArray;
+    }
     bool Clear();
 
 private:

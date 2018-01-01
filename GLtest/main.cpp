@@ -53,7 +53,7 @@ void resize(int w, int h)
 	/* スクリーン上の表示領域をビューポートの大きさに比例させる */
 	glOrtho(-w / 200.0, w / 200.0, -h / 200.0, h / 200.0, -1.0, 1.0);
 
-	scene->resize(w,h);
+	GET_INSTANCE(Render)->resize(w,h);
 	scene->update(0.0f);
 }
 
@@ -109,42 +109,42 @@ void keyboard(unsigned char key, int x, int y)
 	const float zoom = 1.f;
 	switch (key) {
 	case 'm':
-		scene->getCameraPtr()->fovy += zoom;
+		GET_INSTANCE(Camera)->fovy += zoom;
 		break;
 	case 'n':
-		scene->getCameraPtr()->fovy -= zoom;
+		GET_INSTANCE(Camera)->fovy -= zoom;
 		break;
 	case 'w':
-		scene->getCameraPtr()->angleY += rotate;
-		printf("scene->getCamera() pos:[%f,%f,%f]\n", scene->getCameraPtr()->x, scene->getCameraPtr()->y, scene->getCameraPtr()->z);
+		GET_INSTANCE(Camera)->angleY += rotate;
+		printf("scene->getCamera() pos:[%f,%f,%f]\n", GET_INSTANCE(Camera)->x, GET_INSTANCE(Camera)->y, GET_INSTANCE(Camera)->z);
 		break;
 	case 'a':
-		scene->getCameraPtr()->angleH -= rotate;
-		printf("scene->getCamera() pos:[%f,%f,%f]\n", scene->getCameraPtr()->x, scene->getCameraPtr()->y, scene->getCameraPtr()->z);
+		GET_INSTANCE(Camera)->angleH -= rotate;
+		printf("scene->getCamera() pos:[%f,%f,%f]\n", GET_INSTANCE(Camera)->x, GET_INSTANCE(Camera)->y, GET_INSTANCE(Camera)->z);
 		break;
 	case 's':
-		scene->getCameraPtr()->angleY -= rotate;
-		printf("scene->getCamera() pos:[%f,%f,%f]\n", scene->getCameraPtr()->x, scene->getCameraPtr()->y, scene->getCameraPtr()->z);
+		GET_INSTANCE(Camera)->angleY -= rotate;
+		printf("scene->getCamera() pos:[%f,%f,%f]\n", GET_INSTANCE(Camera)->x, GET_INSTANCE(Camera)->y, GET_INSTANCE(Camera)->z);
 		break;
 	case 'd':
-		scene->getCameraPtr()->angleH += rotate;
-		printf("scene->getCamera() pos:[%f,%f,%f]\n", scene->getCameraPtr()->x, scene->getCameraPtr()->y, scene->getCameraPtr()->z);
+		GET_INSTANCE(Camera)->angleH += rotate;
+		printf("scene->getCamera() pos:[%f,%f,%f]\n", GET_INSTANCE(Camera)->x, GET_INSTANCE(Camera)->y, GET_INSTANCE(Camera)->z);
 		break;
 	case 'i':
-		scene->getCameraPtr()->mTargetPos.z += spd;
-		printf("scene->getCamera() pos:[%f,%f,%f]\n", scene->getCameraPtr()->x, scene->getCameraPtr()->y, scene->getCameraPtr()->z);
+		GET_INSTANCE(Camera)->mTargetPos.z += spd;
+		printf("scene->getCamera() pos:[%f,%f,%f]\n", GET_INSTANCE(Camera)->x, GET_INSTANCE(Camera)->y, GET_INSTANCE(Camera)->z);
 		break;
 	case 'j':
-		scene->getCameraPtr()->mTargetPos.x -= spd;
-		printf("scene->getCamera() pos:[%f,%f,%f]\n", scene->getCameraPtr()->x, scene->getCameraPtr()->y, scene->getCameraPtr()->z);
+		GET_INSTANCE(Camera)->mTargetPos.x -= spd;
+		printf("scene->getCamera() pos:[%f,%f,%f]\n", GET_INSTANCE(Camera)->x, GET_INSTANCE(Camera)->y, GET_INSTANCE(Camera)->z);
 		break;
 	case 'k':
-		scene->getCameraPtr()->mTargetPos.z -= spd;
-		printf("scene->getCamera() pos:[%f,%f,%f]\n", scene->getCameraPtr()->x, scene->getCameraPtr()->y, scene->getCameraPtr()->z);
+		GET_INSTANCE(Camera)->mTargetPos.z -= spd;
+		printf("scene->getCamera() pos:[%f,%f,%f]\n", GET_INSTANCE(Camera)->x, GET_INSTANCE(Camera)->y, GET_INSTANCE(Camera)->z);
 		break;
 	case 'l':
-		scene->getCameraPtr()->mTargetPos.x += spd;
-		printf("scene->getCamera() pos:[%f,%f,%f]\n", scene->getCameraPtr()->x, scene->getCameraPtr()->y, scene->getCameraPtr()->z);
+		GET_INSTANCE(Camera)->mTargetPos.x += spd;
+		printf("scene->getCamera() pos:[%f,%f,%f]\n", GET_INSTANCE(Camera)->x, GET_INSTANCE(Camera)->y, GET_INSTANCE(Camera)->z);
 		break;
 	case 'q':
 	case 'Q':
@@ -196,10 +196,12 @@ int main(int argc, char *argv[])
         //createInstance<TextureMgr>();
         TextureMgr::Create();
         ActorMgr::Create();
+        Camera::Create();
+        Render::Create();
 
 		scene->initScene();
 	}
-	scene->resize((int)SCREEN_WIDTH, (int)SCREEN_HEIGHT);
+	GET_INSTANCE(Render)->resize((int)SCREEN_WIDTH, (int)SCREEN_HEIGHT);
 	glutDisplayFunc(display);
 	glutReshapeFunc(resize);
 	glutKeyboardFunc(keyboard);

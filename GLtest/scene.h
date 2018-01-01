@@ -20,11 +20,6 @@ public:
       */
     virtual void render() = 0;
 
-    /**
-      Called when screen is resized
-      */
-    virtual void resize(int, int) = 0;
-
 };
 
 #endif // SCENE_H

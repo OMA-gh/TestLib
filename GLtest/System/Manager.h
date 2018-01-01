@@ -5,6 +5,8 @@
 #include "Singleton.h"
 #include "TextureMgr.h"
 #include "ActorMgr.h"
+#include "Render.h"
+#include "../Camera.h"
 /*
 template<typename T>
 void createInstance<T>() {
