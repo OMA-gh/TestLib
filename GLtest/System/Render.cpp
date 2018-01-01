@@ -1,4 +1,3 @@
-#include "Render.h"
 #include "Manager.h"
 #include "../Camera.h"
 
@@ -34,8 +33,11 @@ void Render::DrawShadowMap() {
     auto it = GET_INSTANCE(ActorMgr)->getActorArray().begin();
     auto end = GET_INSTANCE(ActorMgr)->getActorArray().end();
     for (; it != end; it++) {
-        setActorMatrix(it->second.get());
-        it->second->render();
+        if (it->first != "Light") {
+            setActorMatrix(it->second.get());
+            //resetActorMatrix();
+            it->second->render();
+        }
     }
     glDisable(GL_CULL_FACE);
 }
@@ -57,6 +59,7 @@ void Render::DrawPass1() {
     auto end = GET_INSTANCE(ActorMgr)->getActorArray().end();
     for (; it != end; it++) {
         setActorMatrix(it->second.get());
+        //resetActorMatrix();
         it->second->render();
     }
 }
@@ -80,7 +83,6 @@ void Render::DrawPass2() {
 }
 
 void Render::init() {
-
     compileAndLinkShader();
     setFrameBuffer();
     setWhiteTextureInfo();
@@ -99,7 +101,6 @@ void Render::init() {
     prog.setUniform("Material.Ks", 0.8f, 0.8f, 0.8f);
     prog.setUniform("Light.Ls", 1.0f, 1.0f, 1.0f);
     prog.setUniform("Material.Shininess", 100.0f);
-
 }
 
 void Render::setMatrices()
@@ -127,9 +128,14 @@ void Render::setMatrices()
 }
 
 void Render::setActorMatrix(Actor* actor) {
+    /*
     prog.setUniform("ObjectPosition", actor->getPosition());
     prog.setUniform("ObjectScale", actor->getScale());
     prog.setUniform("ObjectRotation", actor->getRotation());
+    */
+    prog.setUniform("ObjectPosition", glm::vec3(0.f));
+    prog.setUniform("ObjectScale", glm::vec3(1.f));
+    prog.setUniform("ObjectRotation", glm::vec3(1.f, 0.f, 0.f));
 }
 
 void Render::resetActorMatrix() {

@@ -32,7 +32,7 @@ public:
 	const glm::vec3& getRotation() const {
 		return mRotation;
 	}
-	void setTranslation(const glm::vec3& rotate) {
+	void setRotation(const glm::vec3& rotate) {
 		mRotation = rotate;
 	}
 

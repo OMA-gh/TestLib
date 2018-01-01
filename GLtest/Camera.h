@@ -9,7 +9,7 @@ public:
     friend class Singleton<Camera>;//Singletonでのインスタンス作成は許可
 
 public:
-	Camera() {
+	void init() {
 		x = y = z = 0;
 		mTargetPos = glm::vec3(0.f);
 		y = 6;

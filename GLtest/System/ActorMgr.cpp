@@ -1,4 +1,5 @@
 #include "ActorMgr.h"
+#include "../Actor/Test.h"
 
 ActorMgr *ActorMgr::s_pInstance = nullptr;
 
@@ -16,7 +17,7 @@ void ActorMgr::update() {
 }
 
 bool ActorMgr::requestCreateActor(std::string actor_name, Model* model) {
-    std::unique_ptr<Actor> actor = std::make_unique<Actor>();
+    std::unique_ptr<Test> actor = std::make_unique<Test>();
     actor->setModel(model);
     mActorPtrArray[actor_name] = std::move(actor);
 

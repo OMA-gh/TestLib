@@ -15,8 +15,6 @@ using std::ostringstream;
 
 #define BUFFER_OFFSET(bytes) ((GLubyte *)NULL + (bytes))
 
-static GLuint index_buffer;
-
 SceneBasic::SceneBasic()
 	:mTerrain()
 	,mCube()
@@ -26,6 +24,7 @@ SceneBasic::SceneBasic()
 void SceneBasic::initScene()
 {
     GET_INSTANCE(Render)->init();
+    GET_INSTANCE(Camera)->init();
 
 	mPlane.init();
     mPlane.setTextureInfo(GET_INSTANCE(TextureMgr)->load(mPlane.getTextureName()));
@@ -58,7 +57,7 @@ void SceneBasic::render()
 	/* 頂点データ，法線データ，テクスチャ座標の配列を有効にする */
 	glEnableClientState(GL_VERTEX_ARRAY);
 
-    GET_INSTANCE(Render)->DrawShadowMap();
+    //GET_INSTANCE(Render)->DrawShadowMap();
     GET_INSTANCE(Render)->DrawPass1();
     GET_INSTANCE(Render)->DrawPass2();
 
