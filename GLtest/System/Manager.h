@@ -5,5 +5,6 @@
 #include "Singleton.h"
 #include "TextureMgr.h"
 #include "ActorMgr.h"
+#include "ModelMgr.h"
 #include "Render.h"
 #include "../Camera.h"

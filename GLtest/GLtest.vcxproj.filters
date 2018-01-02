@@ -84,6 +84,9 @@
     <ClCompile Include="System\Render.cpp">
       <Filter>System</Filter>
     </ClCompile>
+    <ClCompile Include="System\ModelMgr.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glslprogram.h">
@@ -135,6 +138,9 @@
       <Filter>System</Filter>
     </ClInclude>
     <ClInclude Include="System\Render.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\ModelMgr.h">
       <Filter>System</Filter>
     </ClInclude>
   </ItemGroup>

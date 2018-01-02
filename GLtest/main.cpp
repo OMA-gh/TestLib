@@ -196,6 +196,7 @@ int main(int argc, char *argv[])
         //createInstance<TextureMgr>();
         TextureMgr::Create();
         ActorMgr::Create();
+        ModelMgr::Create();
         Camera::Create();
         Render::Create();
 
