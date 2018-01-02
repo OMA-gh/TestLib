@@ -12,6 +12,17 @@ Render::~Render() {
 
 }
 
+void Render::drawActor() {
+    auto it = GET_INSTANCE(ActorMgr)->getActorArray().begin();
+    auto end = GET_INSTANCE(ActorMgr)->getActorArray().end();
+    for (; it != end; it++) {
+        if (it->first != "Light") {
+            setActorMatrix(it->second.get());
+            it->second->render();
+        }
+    }
+}
+
 void Render::DrawShadowMap() {
     Actor* test = GET_INSTANCE(ActorMgr)->getActorPtr("Test");
     Actor* light = GET_INSTANCE(ActorMgr)->getActorPtr("Light");
@@ -30,15 +41,7 @@ void Render::DrawShadowMap() {
     glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 1, &mShadowPassIndex);
     glEnable(GL_CULL_FACE);
     glCullFace(GL_FRONT);
-    auto it = GET_INSTANCE(ActorMgr)->getActorArray().begin();
-    auto end = GET_INSTANCE(ActorMgr)->getActorArray().end();
-    for (; it != end; it++) {
-        if (it->first != "Light") {
-            setActorMatrix(it->second.get());
-            //resetActorMatrix();
-            it->second->render();
-        }
-    }
+    drawActor();
     glDisable(GL_CULL_FACE);
 }
 void Render::DrawPass1() {
@@ -57,11 +60,7 @@ void Render::DrawPass1() {
     glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 1, &mPass1Index);
     auto it = GET_INSTANCE(ActorMgr)->getActorArray().begin();
     auto end = GET_INSTANCE(ActorMgr)->getActorArray().end();
-    for (; it != end; it++) {
-        setActorMatrix(it->second.get());
-        //resetActorMatrix();
-        it->second->render();
-    }
+    drawActor();
 }
 void Render::DrawPass2() {
     // Pass3
@@ -131,10 +130,6 @@ void Render::setActorMatrix(Actor* actor) {
     prog.setUniform("ObjectPosition", actor->getPosition());
     prog.setUniform("ObjectScale", actor->getScale());
     prog.setUniform("ObjectRotation", actor->getRotation());
-    
-    //prog.setUniform("ObjectPosition", glm::vec3(0.f));
-    //prog.setUniform("ObjectScale", glm::vec3(1.f));
-    //prog.setUniform("ObjectRotation", glm::vec3(1.f, 0.f, 0.f));
 }
 
 void Render::resetActorMatrix() {
