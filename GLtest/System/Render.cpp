@@ -128,14 +128,13 @@ void Render::setMatrices()
 }
 
 void Render::setActorMatrix(Actor* actor) {
-    /*
     prog.setUniform("ObjectPosition", actor->getPosition());
     prog.setUniform("ObjectScale", actor->getScale());
     prog.setUniform("ObjectRotation", actor->getRotation());
-    */
-    prog.setUniform("ObjectPosition", glm::vec3(0.f));
-    prog.setUniform("ObjectScale", glm::vec3(1.f));
-    prog.setUniform("ObjectRotation", glm::vec3(1.f, 0.f, 0.f));
+    
+    //prog.setUniform("ObjectPosition", glm::vec3(0.f));
+    //prog.setUniform("ObjectScale", glm::vec3(1.f));
+    //prog.setUniform("ObjectRotation", glm::vec3(1.f, 0.f, 0.f));
 }
 
 void Render::resetActorMatrix() {
