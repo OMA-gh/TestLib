@@ -54,7 +54,7 @@ void SceneBasic::render()
 	/* 頂点データ，法線データ，テクスチャ座標の配列を有効にする */
 	glEnableClientState(GL_VERTEX_ARRAY);
 
-    //GET_INSTANCE(Render)->DrawShadowMap();
+    GET_INSTANCE(Render)->DrawShadowMap();
     GET_INSTANCE(Render)->DrawPass1();
     GET_INSTANCE(Render)->DrawPass2();
 

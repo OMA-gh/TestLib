@@ -18,6 +18,7 @@ void ActorMgr::update() {
 
 bool ActorMgr::addActor(std::string actor_name, std::unique_ptr<Actor> actor, Model* model) {
     actor->setModel(model);
+    actor->setName(actor_name);
     mActorPtrArray[actor_name] = std::move(actor);
 
     return true;

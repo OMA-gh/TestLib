@@ -16,7 +16,7 @@ void Render::drawActor() {
     auto it = GET_INSTANCE(ActorMgr)->getActorArray().begin();
     auto end = GET_INSTANCE(ActorMgr)->getActorArray().end();
     for (; it != end; it++) {
-        if (it->first != "Light") {
+        if (it->second->getName() != "Light") {
             setActorMatrix(it->second.get());
             it->second->render();
         }
@@ -76,9 +76,13 @@ void Render::DrawPass2() {
     setMatrices();
     glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 1, &mPass2Index);
     glBindTexture(GL_TEXTURE_2D, mRenderTexture);
-    //glBindTexture(GL_TEXTURE_2D, mDepthTex);
     glBindVertexArray(mFullScreenQuad);
     glDrawArrays(GL_TRIANGLES, 0, 6);
+    for (int i = 0; i < 1; i++) {
+        glBindTexture(GL_TEXTURE_2D, mDepthTex);
+        glBindVertexArray(mDebugQuad[0]);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+    }
 }
 
 void Render::init() {
@@ -86,6 +90,7 @@ void Render::init() {
     setFrameBuffer();
     setWhiteTextureInfo();
     setFullScreenQuad();
+    setDebugQuad();
 
     mShadowPassIndex = glGetSubroutineIndex(prog.getHandle(), GL_FRAGMENT_SHADER, "recordDepth");
     mPass1Index = glGetSubroutineIndex(prog.getHandle(), GL_FRAGMENT_SHADER, "pass1");
@@ -301,6 +306,52 @@ void Render::setFullScreenQuad() {
     glEnableVertexAttribArray(3);  // Texture coordinates
 
     glBindVertexArray(0);
+}
+
+void Render::setDebugQuad() {
+    const int divide_num = 3;
+    const float c_size = 1.f / divide_num;
+    for (int i = 0; i < 1; i++) {
+        float c_pos = -1.f / divide_num * (divide_num - 1) + 1.f / divide_num * i;
+        GLfloat verts[] = {
+            c_pos - c_size, c_pos - c_size, -0.001f,
+            c_pos + c_size, c_pos - c_size, -0.001f,
+            c_pos + c_size, c_pos + c_size, -0.001f,
+            c_pos - c_size, c_pos - c_size, -0.001f,
+            c_pos + c_size, c_pos + c_size, -0.001f,
+            c_pos - c_size, c_pos + c_size, -0.001f
+        };
+        GLfloat tc[] = {
+            0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+            0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f
+        };
+
+        // Set up the buffers
+
+        unsigned int handle[2];
+        glGenBuffers(2, handle);
+
+        glBindBuffer(GL_ARRAY_BUFFER, handle[0]);
+        glBufferData(GL_ARRAY_BUFFER, 6 * 3 * sizeof(float), verts, GL_STATIC_DRAW);
+
+        glBindBuffer(GL_ARRAY_BUFFER, handle[1]);
+        glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(float), tc, GL_STATIC_DRAW);
+
+        // Set up the vertex array object
+
+        glGenVertexArrays(1, &mDebugQuad[i]);
+        glBindVertexArray(mDebugQuad[i]);
+
+        glBindBuffer(GL_ARRAY_BUFFER, handle[0]);
+        glVertexAttribPointer((GLuint)0, 3, GL_FLOAT, GL_FALSE, 0, ((GLubyte *)NULL + (0)));
+        glEnableVertexAttribArray(0);  // Vertex position
+
+        glBindBuffer(GL_ARRAY_BUFFER, handle[1]);
+        glVertexAttribPointer((GLuint)3, 2, GL_FLOAT, GL_FALSE, 0, ((GLubyte *)NULL + (0)));
+        glEnableVertexAttribArray(3);  // Texture coordinates
+
+        glBindVertexArray(0);
+    }
 }
 
 void Render::resize(int w, int h)

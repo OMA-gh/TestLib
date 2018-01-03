@@ -36,6 +36,7 @@ private:
     void setFrameBuffer();
     void setWhiteTextureInfo();
     void setFullScreenQuad();
+    void setDebugQuad();
 private:
     int mWidth, mHeight;//スクリーンのサイズ
     glm::mat4 mModel, mView, mProjection;
@@ -53,6 +54,6 @@ private:
     GLuint mDepthBuffer;
     GLuint mWhiteTexHandle;
 
-
     GLuint mFullScreenQuad;
+    GLuint mDebugQuad[1];
 };

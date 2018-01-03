@@ -10,8 +10,8 @@
 
 #define BUFFER_OFFSET(bytes) ((GLubyte *)NULL + (bytes))
 
-#define FIELD_SIZE 20
-#define SIZE 200
+#define FIELD_SIZE 40 // •Ó‚Ì’·‚³
+#define SIZE 200 // •ªŠ„”
 #define GRID_SIZE SIZE*SIZE
 
 class Terrain : public Model{

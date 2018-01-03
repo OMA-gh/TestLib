@@ -35,11 +35,19 @@ public:
 	void setRotation(const glm::vec3& rotate) {
 		mRotation = rotate;
 	}
+    const std::string& getName() const {
+        return mName;
+    }
+    void setName(std::string& name) {
+        mName = name;
+    }
 
 private:
 	glm::vec3 mPosition;
 	glm::vec3 mScale;
 	glm::vec3 mRotation;
+
+    std::string mName;
 
 	Model* mModel;
 };
