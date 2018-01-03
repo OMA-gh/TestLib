@@ -30,18 +30,10 @@ void SceneBasic::initScene()
     GET_INSTANCE(ModelMgr)->addModel("cube", std::move(std::make_unique<Cube>()));
     GET_INSTANCE(ModelMgr)->addModel("terrain", std::move(std::make_unique<Terrain>()));
 
-    /*
-	mPlane.init();
-    mPlane.setTextureInfo(GET_INSTANCE(TextureMgr)->load(mPlane.getTextureName()));
-    mCube.init();
-    mCube.setTextureInfo(GET_INSTANCE(TextureMgr)->load(mPlane.getTextureName()));
-    mTerrain.init();
-    mTerrain.setTextureInfo(GET_INSTANCE(TextureMgr)->load(mPlane.getTextureName()));
-    */
     if (GET_INSTANCE(ActorMgr)) {
-        GET_INSTANCE(ActorMgr)->requestCreateActor("Test", GET_INSTANCE(ModelMgr)->getModelPtr("plane"));
-        GET_INSTANCE(ActorMgr)->requestCreateActor("Light", GET_INSTANCE(ModelMgr)->getModelPtr("cube"));
-        GET_INSTANCE(ActorMgr)->requestCreateActor("Terrain", GET_INSTANCE(ModelMgr)->getModelPtr("terrain"));
+        GET_INSTANCE(ActorMgr)->addActor("Test", std::move(std::make_unique<Test>()), GET_INSTANCE(ModelMgr)->getModelPtr("plane"));
+        GET_INSTANCE(ActorMgr)->addActor("Light", std::move(std::make_unique<Test>()), GET_INSTANCE(ModelMgr)->getModelPtr("cube"));
+        GET_INSTANCE(ActorMgr)->addActor("Terrain", std::move(std::make_unique<Test>()), GET_INSTANCE(ModelMgr)->getModelPtr("terrain"));
     }
 }
 

@@ -16,8 +16,7 @@ void ActorMgr::update() {
     }
 }
 
-bool ActorMgr::requestCreateActor(std::string actor_name, Model* model) {
-    std::unique_ptr<Test> actor = std::make_unique<Test>();
+bool ActorMgr::addActor(std::string actor_name, std::unique_ptr<Actor> actor, Model* model) {
     actor->setModel(model);
     mActorPtrArray[actor_name] = std::move(actor);
 
