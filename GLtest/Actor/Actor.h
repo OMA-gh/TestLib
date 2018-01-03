@@ -7,7 +7,7 @@ class Actor {
 public:
 	Actor();
 
-	virtual void update() {};
+    virtual void update() { printf("WARNING|基底アクターのupdateです。\n"); };
 	virtual void render() const;
 
 	void setModel(Model* model) {
