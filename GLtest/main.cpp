@@ -110,9 +110,11 @@ void keyboard(unsigned char key, int x, int y)
 	switch (key) {
 	case 'm':
 		GET_INSTANCE(Camera)->fovy += zoom;
+        printf("scene->getCamera() fovy:[%f]\n", GET_INSTANCE(Camera)->fovy);
 		break;
 	case 'n':
 		GET_INSTANCE(Camera)->fovy -= zoom;
+        printf("scene->getCamera() fovy:[%f]\n", GET_INSTANCE(Camera)->fovy);
 		break;
 	case 'w':
 		GET_INSTANCE(Camera)->angleY += rotate;
