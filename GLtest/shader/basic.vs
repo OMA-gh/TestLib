@@ -25,8 +25,10 @@ void main()
 	vec3 rotate = ObjectRotation/vec3(1,0,0);
     vec3 pos = VertexPosition*ObjectScale+ObjectPosition;
 	VNormal = normalize( NormalMatrix * VertexNormal );
+    //VNormal = normalize(VertexNormal);
     VPosition = vec3(ModelViewMatrix * vec4(pos,1.0));
-	VColor = VertexColor;
+	//VPosition = pos;
+    VColor = VertexColor;
 	VTexCoord = VertexTexCoord;
     VShadowCoord = ShadowMatrix * vec4(pos,1.0);
     gl_Position = MVP * vec4(pos,1.0);

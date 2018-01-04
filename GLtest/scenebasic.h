@@ -7,8 +7,6 @@
 #include "Model\Cube.h"
 #include "Model\Plane.h"
 
-#include "Actor\Test.h"
-
 class SceneBasic : public Scene
 {
 private:

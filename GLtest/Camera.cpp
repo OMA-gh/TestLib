@@ -12,7 +12,7 @@ void Camera::update() {
 	if (angleY > 90)angleY = 90;
 
 	x = mTargetPos.x +cos(PI / 180 * angleH)*20.f;
-	y = mTargetPos.y + sin(PI / 180 * angleY)*20.f;
+	y = mTargetPos.y + sin(PI / 180 * angleY)*100.f;
 	z = mTargetPos.z +sin(PI / 180 * angleH)*20.f;
 
 	cameraMatrix(fovy, 960 / 540, 0.1f, 200.0f);

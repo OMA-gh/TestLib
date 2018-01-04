@@ -41,13 +41,17 @@ public:
     void setName(std::string& name) {
         mName = name;
     }
+    bool isThroughLight() {
+        return mIsThroughLight;
+    }
 
-private:
+protected:
 	glm::vec3 mPosition;
 	glm::vec3 mScale;
 	glm::vec3 mRotation;
-
     std::string mName;
+    int mCount;
+    bool mIsThroughLight;
 
 	Model* mModel;
 };

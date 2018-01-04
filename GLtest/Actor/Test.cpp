@@ -1,7 +1,6 @@
 #include "Test.h"
 
 Test::Test() : Actor() {
-
 }
 
 void Test::update() {

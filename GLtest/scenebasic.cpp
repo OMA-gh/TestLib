@@ -13,6 +13,9 @@ using std::ostringstream;
 
 #include "glutils.h"
 
+#include "Actor\Test.h"
+#include "Actor\Light.h"
+
 #define BUFFER_OFFSET(bytes) ((GLubyte *)NULL + (bytes))
 
 SceneBasic::SceneBasic()
@@ -32,7 +35,7 @@ void SceneBasic::initScene()
 
     if (GET_INSTANCE(ActorMgr)) {
         GET_INSTANCE(ActorMgr)->addActor("Test", std::move(std::make_unique<Test>()), GET_INSTANCE(ModelMgr)->getModelPtr("plane"));
-        GET_INSTANCE(ActorMgr)->addActor("Light", std::move(std::make_unique<Test>()), GET_INSTANCE(ModelMgr)->getModelPtr("cube"));
+        GET_INSTANCE(ActorMgr)->addActor("Light", std::move(std::make_unique<Light>()), GET_INSTANCE(ModelMgr)->getModelPtr("cube"));
         GET_INSTANCE(ActorMgr)->addActor("Terrain", std::move(std::make_unique<Test>()), GET_INSTANCE(ModelMgr)->getModelPtr("terrain"));
     }
 }

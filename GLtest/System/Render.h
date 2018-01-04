@@ -27,7 +27,7 @@ public:
     void DrawPass1();
     void DrawPass2();
 private:
-    void drawActor();
+    void drawActor(int pass_index);
     void setMatrices();
     void setActorMatrix(Actor* actor);
     void resetActorMatrix();
