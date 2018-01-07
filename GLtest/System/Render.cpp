@@ -6,7 +6,8 @@ Render *Render::s_pInstance = nullptr;
 float PI = 3.141592653589f;
 
 Render::Render() {
-    mShadowWidth = 512; mShadowHeight = 512;
+    mShadowWidth  = 512 * 8;
+    mShadowHeight = 512 * 8;
 }
 Render::~Render() {
 
@@ -36,7 +37,6 @@ void Render::DrawShadowMap() {
     mView = Camera::calcViewMatrix(light->getPosition(), glm::vec3(10, 8, 10), glm::vec3(0, 1, 0));
     mProjection = Camera::calcPerspectiveMatrix(60.0f, 1.0f, 0.1f, 1200.0f);
     this->resize(mShadowWidth, mShadowHeight);
-    setLightPos();
     setMatrices();
     glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 1, &mShadowPassIndex);
     glEnable(GL_CULL_FACE);
@@ -56,10 +56,7 @@ void Render::DrawPass1() {
     mProjection = GET_INSTANCE(Camera)->perspective;
     this->resize(960, 540);
     setMatrices();
-    setLightPos();
     glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 1, &mPass1Index);
-    auto it = GET_INSTANCE(ActorMgr)->getActorArray().begin();
-    auto end = GET_INSTANCE(ActorMgr)->getActorArray().end();
     drawActor(1);
 }
 void Render::DrawPass2() {
@@ -126,7 +123,6 @@ void Render::setMatrices()
 
     glm::mat4 lightPV(0);
     Actor* light = GET_INSTANCE(ActorMgr)->getActorPtr("Light");
-    //prog.setUniform("Light.Position", light_pos.x, light_pos.y, light_pos.z, 1.f);
     prog.setUniform("Light.Position", glm::vec4(light->getPosition(), 1.f));
     mView = Camera::calcViewMatrix(light->getPosition(), glm::vec3(10, 8, 10), glm::vec3(0, 1, 0));
     mProjection = Camera::calcPerspectiveMatrix(60.0f, 1.0f, 0.1f, 1200.0f);
@@ -144,9 +140,6 @@ void Render::resetActorMatrix() {
     prog.setUniform("ObjectPosition", glm::vec3(0.f));
     prog.setUniform("ObjectScale", glm::vec3(1.f));
     prog.setUniform("ObjectRotation", glm::vec3(1.f, 0.f, 0.f));
-}
-
-void Render::setLightPos() {
 }
 
 void Render::compileAndLinkShader()

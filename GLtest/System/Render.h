@@ -31,7 +31,6 @@ private:
     void setMatrices();
     void setActorMatrix(Actor* actor);
     void resetActorMatrix();
-    void setLightPos();
     void compileAndLinkShader();
     void setFrameBuffer();
     void setWhiteTextureInfo();

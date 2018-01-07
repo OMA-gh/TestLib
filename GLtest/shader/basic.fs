@@ -70,7 +70,7 @@ void pass1()
         float x = d - (Line.Width - 1);
         mixVal = exp2(-2.0 * (x*x));
     }
-	mixVal=0.0;
+	//mixVal=0.0;
     
     float sum = 0;
     sum += textureProjOffset(ShadowMap,GShadowCoord,ivec2(-1,-1));
@@ -84,7 +84,6 @@ void pass1()
 	vec3 amb, diff, spec;
 	phongModel(amb, diff,spec);
 	vec4 texColor = texture(RenderTex,GTexCoord);
-	//vec4 texColor = texture(ShadowMap,GTexCoord);
 	
 	//FragColor = vec4((diff+spec) + amb,1.0);
 	//FragColor = vec4((diff+spec)*shadow + amb,1.0);
@@ -95,6 +94,7 @@ void pass1()
 	//FragColor = vec4(amb+diff, 1.0) * texColor + vec4(spec, 1.0);
 	//FragColor = texColor;
 	//FragColor = mix( texColor, Line.Color, mixVal );
+	//FragColor = mix( FragColor, Line.Color, mixVal );
 }
 
 float luminance( vec3 color ) {
