@@ -9,20 +9,37 @@ ActorMgr::~ActorMgr() {
     Clear();
 };
 
-void ActorMgr::update() {
+void ActorMgr::calc() {
     auto end = mActorPtrArray.end();
     for (auto it = mActorPtrArray.begin(); it != end; it++) {
         (*it).second->update();
     }
 }
 
+void ActorMgr::postCalc() {
+    auto end = mAddRequestPtrArray.end();
+    for (auto it = mAddRequestPtrArray.begin(); it != end; it++) {
+        mActorPtrArray[it->first] = std::move(it->second);
+    }
+}
+
 bool ActorMgr::addActor(std::string actor_name, std::unique_ptr<Actor> actor, Model* model) {
+    actor->setModel(model);
+    actor->setName(actor_name);
+    mAddRequestPtrArray[actor_name] = std::move(actor);
+
+    return true;
+}
+
+bool ActorMgr::addActorDynamic(std::string actor_name, std::unique_ptr<Actor> actor, Model* model) {
     actor->setModel(model);
     actor->setName(actor_name);
     mActorPtrArray[actor_name] = std::move(actor);
 
     return true;
 }
+
+
 
 Actor* ActorMgr::getActorPtr(std::string actor_name) {
     auto find = mActorPtrArray.find(actor_name);

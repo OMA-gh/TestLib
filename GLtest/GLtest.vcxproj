@@ -132,6 +132,7 @@
     <ClCompile Include="scenebasic.cpp" />
     <ClCompile Include="System\ActorMgr.cpp" />
     <ClCompile Include="System\ModelMgr.cpp" />
+    <ClCompile Include="System\Physics.cpp" />
     <ClCompile Include="System\Render.cpp" />
     <ClCompile Include="System\TextureMgr.cpp" />
   </ItemGroup>
@@ -154,6 +155,7 @@
     <ClInclude Include="System\ActorMgr.h" />
     <ClInclude Include="System\Manager.h" />
     <ClInclude Include="System\ModelMgr.h" />
+    <ClInclude Include="System\Physics.h" />
     <ClInclude Include="System\Render.h" />
     <ClInclude Include="System\Singleton.h" />
     <ClInclude Include="System\TextureMgr.h" />

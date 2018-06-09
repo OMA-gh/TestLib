@@ -53,7 +53,7 @@ void resize(int w, int h)
 	glOrtho(-w / 200.0, w / 200.0, -h / 200.0, h / 200.0, -1.0, 1.0);
 
 	GET_INSTANCE(Render)->resize(w,h);
-	scene->update(0.0f);
+	scene->calc(0.0f);
 }
 
 void mouse(int button, int state, int x, int y)
@@ -164,7 +164,7 @@ void timer(int value) {
 	else if (top <= -0.9F) isUp = GL_TRUE;
 	top += (isUp == GL_TRUE ? 0.01f : -0.01f);
 
-	scene->update(0.f);
+	scene->calc(0.f);
 
 	glutPostRedisplay();
 	glutTimerFunc(16, timer, 0);

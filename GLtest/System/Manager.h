@@ -7,4 +7,5 @@
 #include "ActorMgr.h"
 #include "ModelMgr.h"
 #include "Render.h"
+#include "Physics.h"
 #include "../Camera.h"

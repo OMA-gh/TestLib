@@ -16,7 +16,8 @@ public:
     SceneBasic();
 
     void initScene();
-    void update( float t );
+    void calc( float t );
+    void postCalc();
     void render();
 
 protected:

@@ -13,7 +13,7 @@ public:
       This is called prior to every frame.  Use this
       to update your animation.
       */
-    virtual void update( float t ) = 0;
+    virtual void calc( float t ) = 0;
 
     /**
       Draw your scene.

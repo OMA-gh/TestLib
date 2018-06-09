@@ -96,6 +96,9 @@
     <ClCompile Include="Model\Torus.cpp">
       <Filter>Model</Filter>
     </ClCompile>
+    <ClCompile Include="System\Physics.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glslprogram.h">
@@ -160,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="Model\Torus.h">
       <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Physics.h">
+      <Filter>System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

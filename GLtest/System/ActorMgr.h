@@ -17,8 +17,10 @@ public:
     ActorMgr();
     ~ActorMgr();
 
-    void update();
+    void calc();
+    void postCalc();
     bool addActor(std::string actor_name, std::unique_ptr<Actor> actor, Model* model);
+    bool addActorDynamic(std::string actor_name, std::unique_ptr<Actor> actor, Model* model);
     Actor* getActorPtr(std::string actor_name);
     const std::unordered_map<std::string, std::unique_ptr<Actor>>& getActorArray() const {
         return mActorPtrArray;
@@ -27,4 +29,5 @@ public:
 
 private:
     std::unordered_map<std::string, std::unique_ptr<Actor>> mActorPtrArray;
+    std::unordered_map<std::string, std::unique_ptr<Actor>> mAddRequestPtrArray;
 };

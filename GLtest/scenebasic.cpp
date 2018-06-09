@@ -36,18 +36,27 @@ void SceneBasic::initScene()
     GET_INSTANCE(ModelMgr)->addModel("terrain", std::move(std::make_unique<Terrain>()));
 
     if (GET_INSTANCE(ActorMgr)) {
-        GET_INSTANCE(ActorMgr)->addActor("Test", std::move(std::make_unique<Simple>()), GET_INSTANCE(ModelMgr)->getModelPtr("torus"));
-        GET_INSTANCE(ActorMgr)->addActor("Light", std::move(std::make_unique<Light>()), GET_INSTANCE(ModelMgr)->getModelPtr("cube"));
-        GET_INSTANCE(ActorMgr)->addActor("Terrain", std::move(std::make_unique<Test>()), GET_INSTANCE(ModelMgr)->getModelPtr("terrain"));
+        GET_INSTANCE(ActorMgr)->addActorDynamic("Test", std::move(std::make_unique<Simple>()), GET_INSTANCE(ModelMgr)->getModelPtr("torus"));
+        GET_INSTANCE(ActorMgr)->addActorDynamic("Light", std::move(std::make_unique<Light>()), GET_INSTANCE(ModelMgr)->getModelPtr("cube"));
+        GET_INSTANCE(ActorMgr)->addActorDynamic("Terrain", std::move(std::make_unique<Test>()), GET_INSTANCE(ModelMgr)->getModelPtr("terrain"));
     }
 }
 
-void SceneBasic::update( float t )
+void SceneBasic::calc( float t )
 {
     GET_INSTANCE(Camera)->update();
 	
     if (GET_INSTANCE(ActorMgr)) {
-        GET_INSTANCE(ActorMgr)->update();
+        GET_INSTANCE(ActorMgr)->calc();
+    }
+    else {
+        printf("ERROR:failed to get ActorMgr\n");
+    }
+}
+
+void SceneBasic::postCalc() {
+    if (GET_INSTANCE(ActorMgr)) {
+        GET_INSTANCE(ActorMgr)->postCalc();
     }
     else {
         printf("ERROR:failed to get ActorMgr\n");
