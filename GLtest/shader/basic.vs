@@ -12,7 +12,6 @@ out vec2 VTexCoord;
 out vec4 VShadowCoord;
 
 uniform mat4 ModelViewMatrix;
-uniform mat3 NormalMatrix;
 uniform mat4 MVP;
 uniform mat4 ShadowMatrix;
 
@@ -24,7 +23,6 @@ void main()
 {
 	vec3 rotate = ObjectRotation/vec3(1,0,0);
     vec3 pos = VertexPosition*ObjectScale+ObjectPosition;
-	//VNormal = normalize( NormalMatrix * VertexNormal );
     VNormal = normalize(VertexNormal);
     VPosition = vec3(ModelViewMatrix * vec4(pos,1.0));
 	//VPosition = pos;

@@ -117,6 +117,7 @@
   <ItemGroup>
     <ClCompile Include="Actor\Actor.cpp" />
     <ClCompile Include="Actor\Light.cpp" />
+    <ClCompile Include="Actor\Simple.cpp" />
     <ClCompile Include="Actor\Test.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="glslprogram.cpp" />
@@ -127,6 +128,7 @@
     <ClCompile Include="Model\Plane.cpp" />
     <ClCompile Include="Model\Terrain.cpp" />
     <ClCompile Include="Model\Texture.cpp" />
+    <ClCompile Include="Model\Torus.cpp" />
     <ClCompile Include="scenebasic.cpp" />
     <ClCompile Include="System\ActorMgr.cpp" />
     <ClCompile Include="System\ModelMgr.cpp" />
@@ -136,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="Actor\Actor.h" />
     <ClInclude Include="Actor\Light.h" />
+    <ClInclude Include="Actor\Simple.h" />
     <ClInclude Include="Actor\Test.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="glslprogram.h" />
@@ -145,6 +148,7 @@
     <ClInclude Include="Model\Plane.h" />
     <ClInclude Include="Model\Terrain.h" />
     <ClInclude Include="Model\Texture.h" />
+    <ClInclude Include="Model\Torus.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="scenebasic.h" />
     <ClInclude Include="System\ActorMgr.h" />

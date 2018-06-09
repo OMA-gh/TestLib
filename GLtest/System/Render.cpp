@@ -109,8 +109,6 @@ void Render::setMatrices()
 {
     mat4 mv = mView * mModel;
     prog.setUniform("ModelViewMatrix", mv);
-    prog.setUniform("NormalMatrix",
-        mat3(vec3(mv[0]), vec3(mv[1]), vec3(mv[2])));
     prog.setUniform("MVP", mProjection * mv);
     prog.setUniform("ViewportMatrix", mViewport);
 

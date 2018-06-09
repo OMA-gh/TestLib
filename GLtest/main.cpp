@@ -17,7 +17,6 @@ const float SCREEN_HEIGHT = 540.f;
 
 static GLint MVPLocation;
 static GLint ModelViewMatrixLocation;
-static GLint NormalMatrixLocation;
 static GLint LightPosLocation;
 
 void multiplyMatrix(const GLfloat *m0, const GLfloat *m1, GLfloat *matrix)

@@ -73,10 +73,10 @@ void pass1()
 	//mixVal=0.0;
     
     float sum = 0;
-    sum += textureProjOffset(ShadowMap,GShadowCoord,ivec2(-1,-1));
-    sum += textureProjOffset(ShadowMap,GShadowCoord,ivec2(-1,1));
-    sum += textureProjOffset(ShadowMap,GShadowCoord,ivec2(1,1));
-    sum += textureProjOffset(ShadowMap,GShadowCoord,ivec2(1,-1));
+    sum += textureProjOffset(ShadowMap,GShadowCoord,ivec2(-1, -1));
+    sum += textureProjOffset(ShadowMap,GShadowCoord,ivec2(-1,  1));
+    sum += textureProjOffset(ShadowMap,GShadowCoord,ivec2( 1,  1));
+    sum += textureProjOffset(ShadowMap,GShadowCoord,ivec2( 1, -1));
     float shadow = sum*0.25;
 
 	shadow = textureProj(ShadowMap,GShadowCoord);

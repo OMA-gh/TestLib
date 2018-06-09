@@ -6,6 +6,7 @@
 #include "Model\Terrain.h"
 #include "Model\Cube.h"
 #include "Model\Plane.h"
+#include "Model\Torus.h"
 
 class SceneBasic : public Scene
 {

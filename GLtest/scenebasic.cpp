@@ -15,6 +15,7 @@ using std::ostringstream;
 
 #include "Actor\Test.h"
 #include "Actor\Light.h"
+#include "Actor\Simple.h"
 
 #define BUFFER_OFFSET(bytes) ((GLubyte *)NULL + (bytes))
 
@@ -31,10 +32,11 @@ void SceneBasic::initScene()
 
     GET_INSTANCE(ModelMgr)->addModel("plane", std::move(std::make_unique<Plane>()));
     GET_INSTANCE(ModelMgr)->addModel("cube", std::move(std::make_unique<Cube>()));
+    GET_INSTANCE(ModelMgr)->addModel("torus", std::move(std::make_unique<Torus>()));
     GET_INSTANCE(ModelMgr)->addModel("terrain", std::move(std::make_unique<Terrain>()));
 
     if (GET_INSTANCE(ActorMgr)) {
-        GET_INSTANCE(ActorMgr)->addActor("Test", std::move(std::make_unique<Test>()), GET_INSTANCE(ModelMgr)->getModelPtr("plane"));
+        GET_INSTANCE(ActorMgr)->addActor("Test", std::move(std::make_unique<Simple>()), GET_INSTANCE(ModelMgr)->getModelPtr("torus"));
         GET_INSTANCE(ActorMgr)->addActor("Light", std::move(std::make_unique<Light>()), GET_INSTANCE(ModelMgr)->getModelPtr("cube"));
         GET_INSTANCE(ActorMgr)->addActor("Terrain", std::move(std::make_unique<Test>()), GET_INSTANCE(ModelMgr)->getModelPtr("terrain"));
     }

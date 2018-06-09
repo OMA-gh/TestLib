@@ -22,7 +22,6 @@ struct MaterialInfo{
 uniform MaterialInfo Material;
 
 uniform mat4 ModelViewMatrix;
-uniform mat3 NormalMatrix;
 uniform mat4 MVP;
 
 void main()

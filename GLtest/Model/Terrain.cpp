@@ -151,7 +151,8 @@ void Terrain::setIndexInfo() {
 			push_color.y = 0.5f;
 			push_color.z = 0.5f;
 		}
-		push_pos.y *= 10.f;// y
+		push_pos.y *= 10.f;// yd
+        push_pos.y = 0;
 
 		push_normal.x = 0.f;
 		push_normal.y = 1.f;
