@@ -15,7 +15,10 @@ private:
 public:
     SceneBasic();
 
+    void debugCommand();
+
     void initScene();
+    void preCalc();
     void calc( float t );
     void postCalc();
     void render();

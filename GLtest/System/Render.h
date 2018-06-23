@@ -29,7 +29,7 @@ public:
 private:
     void drawActor(int pass_index);
     void setMatrices();
-    void setActorMatrix(Actor* actor);
+    void setActorMatrix(const Actor& actor);
     void resetActorMatrix();
     void compileAndLinkShader();
     void setFrameBuffer();

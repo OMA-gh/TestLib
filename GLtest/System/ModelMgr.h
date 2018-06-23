@@ -17,7 +17,7 @@ public:
     ~ModelMgr();
 
     void addModel(std::string name, std::unique_ptr<Model> model);
-    Model* getModelPtr(std::string actor_name);
+    Model* getModelPtr(std::string actor_name) const;
     bool Clear();
 
 private:

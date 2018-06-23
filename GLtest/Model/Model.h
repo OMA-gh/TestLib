@@ -21,7 +21,7 @@ public:
 	~Model() {};
 
     void init();
-	void render() const;
+	virtual void render() const;
 	void setVertexBufferObject();
 	void setTextureInfo(Texture* texture);
 

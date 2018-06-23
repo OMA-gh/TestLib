@@ -15,7 +15,7 @@ void ModelMgr::addModel(std::string name, std::unique_ptr<Model> model) {
     mModelPtrMap[name] = std::move(model);
 }
 
-Model* ModelMgr::getModelPtr(std::string Model_name) {
+Model* ModelMgr::getModelPtr(std::string Model_name) const {
     auto find = mModelPtrMap.find(Model_name);
     if (find == mModelPtrMap.end()) {
         printf("ERROR:Model is not exist [Model name:%s] @ModelMgr::getModelPtr()", Model_name.c_str());

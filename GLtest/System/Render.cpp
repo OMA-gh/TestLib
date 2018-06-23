@@ -18,15 +18,15 @@ void Render::drawActor(int pass_index) {
     auto end = GET_INSTANCE(ActorMgr)->getActorArray().end();
     for (; it != end; it++) {
         if (!(pass_index == 0 && it->second->isThroughLight())) {
-            setActorMatrix(it->second.get());
-            it->second->render();
+            const Actor& actor = GET_INSTANCE(ActorMgr)->getActor(it->first);
+            setActorMatrix(actor);
+            actor.render();
         }
     }
 }
 
 void Render::DrawShadowMap() {
-    Actor* test = GET_INSTANCE(ActorMgr)->getActorPtr("Test");
-    Actor* light = GET_INSTANCE(ActorMgr)->getActorPtr("Light");
+    const Actor& light = GET_INSTANCE(ActorMgr)->getActor("Light");
     // Pass1 (Shadow map)
     glBindFramebuffer(GL_FRAMEBUFFER, mShadowFbo);
     prog.setUniform("ShadowMap", 2);
@@ -34,7 +34,7 @@ void Render::DrawShadowMap() {
     glClear(GL_DEPTH_BUFFER_BIT);
 
     mModel = glm::mat4(1.f);
-    mView = Camera::calcViewMatrix(light->getPosition(), glm::vec3(10, 8, 10), glm::vec3(0, 1, 0));
+    mView = Camera::calcViewMatrix(light.getPosition(), glm::vec3(10, 8, 10), glm::vec3(0, 1, 0));
     mProjection = Camera::calcPerspectiveMatrix(60.0f, 1.0f, 0.1f, 1200.0f);
     this->resize(mShadowWidth, mShadowHeight);
     setMatrices();
@@ -75,6 +75,7 @@ void Render::DrawPass2() {
     glBindTexture(GL_TEXTURE_2D, mRenderTexture);
     //glBindTexture(GL_TEXTURE_2D, mDepthTex);
     glBindVertexArray(mFullScreenQuad);
+    resetActorMatrix();
     glDrawArrays(GL_TRIANGLES, 0, 6);
     for (int i = 0; i < 1; i++) {
         glBindTexture(GL_TEXTURE_2D, mDepthTex);
@@ -120,18 +121,18 @@ void Render::setMatrices()
     );
 
     glm::mat4 lightPV(0);
-    Actor* light = GET_INSTANCE(ActorMgr)->getActorPtr("Light");
-    prog.setUniform("Light.Position", glm::vec4(light->getPosition(), 1.f));
-    mView = Camera::calcViewMatrix(light->getPosition(), glm::vec3(10, 8, 10), glm::vec3(0, 1, 0));
+    const Actor& light = GET_INSTANCE(ActorMgr)->getActor("Light");
+    prog.setUniform("Light.Position", glm::vec4(light.getPosition(), 1.f));
+    mView = Camera::calcViewMatrix(light.getPosition(), glm::vec3(10, 8, 10), glm::vec3(0, 1, 0));
     mProjection = Camera::calcPerspectiveMatrix(60.0f, 1.0f, 0.1f, 1200.0f);
     lightPV = shadowBias * mProjection * mView;
     prog.setUniform("ShadowMatrix", lightPV * mModel);
 }
 
-void Render::setActorMatrix(Actor* actor) {
-    prog.setUniform("ObjectPosition", actor->getPosition());
-    prog.setUniform("ObjectScale", actor->getScale());
-    prog.setUniform("ObjectRotation", actor->getRotation());
+void Render::setActorMatrix(const Actor& actor) {
+    prog.setUniform("ObjectPosition", actor.getPosition());
+    prog.setUniform("ObjectScale", actor.getScale());
+    prog.setUniform("ObjectRotation", actor.getRotation());
 }
 
 void Render::resetActorMatrix() {

@@ -87,8 +87,8 @@ void pass1()
 	
 	//FragColor = vec4((diff+spec) + amb,1.0);
 	//FragColor = vec4((diff+spec)*shadow + amb,1.0);
-	FragColor = vec4((diff*shadow)+amb,1.0)*texColor + vec4(spec*shadow,1.0);
-	//FragColor = vec4(1.0)*shadow;
+	//FragColor = vec4((diff*shadow)+amb,1.0)*texColor + vec4(spec*shadow,1.0);
+	FragColor = vec4((diff*shadow)+amb,1.0) + vec4(spec*shadow,1.0);
 	
 	//FragColor = mix( vec4(phongModel(), 1.0), Line.Color, mixVal );
 	//FragColor = vec4(amb+diff, 1.0) * texColor + vec4(spec, 1.0);

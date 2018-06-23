@@ -147,6 +147,9 @@ void keyboard(unsigned char key, int x, int y)
 		GET_INSTANCE(Camera)->mTargetPos.x += spd;
 		printf("scene->getCamera() pos:[%f,%f,%f]\n", GET_INSTANCE(Camera)->x, GET_INSTANCE(Camera)->y, GET_INSTANCE(Camera)->z);
 		break;
+    case 'z':
+        scene->debugCommand();
+        break;
 	case 'q':
 	case 'Q':
 	case '\033':  /* '\033' は ESC の ASCII コード */
@@ -164,7 +167,9 @@ void timer(int value) {
 	else if (top <= -0.9F) isUp = GL_TRUE;
 	top += (isUp == GL_TRUE ? 0.01f : -0.01f);
 
+    scene->preCalc();
 	scene->calc(0.f);
+    scene->postCalc();
 
 	glutPostRedisplay();
 	glutTimerFunc(16, timer, 0);
@@ -200,6 +205,7 @@ int main(int argc, char *argv[])
         ModelMgr::Create();
         Camera::Create();
         Render::Create();
+        Physics::Create();
 
 		scene->initScene();
 	}

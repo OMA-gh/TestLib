@@ -25,9 +25,18 @@ SceneBasic::SceneBasic()
 {
 }
 
+void SceneBasic::debugCommand() {
+    static int actor_num = 0;
+    std::string name("debug");
+    name = name.append(std::to_string(actor_num));
+    GET_INSTANCE(ActorMgr)->addActor(name, std::move(std::make_unique<Simple>()), GET_INSTANCE(ModelMgr)->getModelPtr("cube"));
+    actor_num++;
+}
+
 void SceneBasic::initScene()
 {
     GET_INSTANCE(Render)->init();
+    GET_INSTANCE(Physics)->init();
     GET_INSTANCE(Camera)->init();
 
     GET_INSTANCE(ModelMgr)->addModel("plane", std::move(std::make_unique<Plane>()));
@@ -36,31 +45,25 @@ void SceneBasic::initScene()
     GET_INSTANCE(ModelMgr)->addModel("terrain", std::move(std::make_unique<Terrain>()));
 
     if (GET_INSTANCE(ActorMgr)) {
-        GET_INSTANCE(ActorMgr)->addActorDynamic("Test", std::move(std::make_unique<Simple>()), GET_INSTANCE(ModelMgr)->getModelPtr("torus"));
+        GET_INSTANCE(ActorMgr)->addActorDynamic("Test", std::move(std::make_unique<Simple>()), GET_INSTANCE(ModelMgr)->getModelPtr("cube"));
         GET_INSTANCE(ActorMgr)->addActorDynamic("Light", std::move(std::make_unique<Light>()), GET_INSTANCE(ModelMgr)->getModelPtr("cube"));
         GET_INSTANCE(ActorMgr)->addActorDynamic("Terrain", std::move(std::make_unique<Test>()), GET_INSTANCE(ModelMgr)->getModelPtr("terrain"));
     }
 }
 
+void SceneBasic::preCalc() {
+    GET_INSTANCE(ActorMgr)->preCalc();
+}
+
 void SceneBasic::calc( float t )
 {
     GET_INSTANCE(Camera)->update();
-	
-    if (GET_INSTANCE(ActorMgr)) {
-        GET_INSTANCE(ActorMgr)->calc();
-    }
-    else {
-        printf("ERROR:failed to get ActorMgr\n");
-    }
+	GET_INSTANCE(ActorMgr)->calc();
+    GET_INSTANCE(Physics)->calc();
 }
 
 void SceneBasic::postCalc() {
-    if (GET_INSTANCE(ActorMgr)) {
-        GET_INSTANCE(ActorMgr)->postCalc();
-    }
-    else {
-        printf("ERROR:failed to get ActorMgr\n");
-    }
+    GET_INSTANCE(ActorMgr)->postCalc();
 }
 
 void SceneBasic::render()

@@ -14,6 +14,7 @@ public:
     ~Torus() {};
 
     void update();
+    virtual void render() const override;
 private:
     virtual void setIndexInfo() override;
 };

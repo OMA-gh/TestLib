@@ -2,18 +2,22 @@
 
 #include "../Model/Model.h"
 #include <glm\glm.hpp>
+#include <PxPhysics.h>
 
 class Actor {
 public:
 	Actor();
 
+    virtual void prepare() {};
     virtual void update() { printf("WARNING|基底アクターのupdateです。\n"); };
 	virtual void render() const;
 
-	void setModel(Model* model) {
+    void reflectBody();
+
+	void setModel(const Model* const model) {
 		mModel = model;
 	}
-	Model* getModelPtr() {
+	const Model* const getModelPtr() {
 		return mModel;
 	}
 
@@ -46,6 +50,10 @@ public:
     }
 
 protected:
+    void ConstructDynamicPhysicsActor(const physx::PxGeometry& geometry, physx::PxMaterial& material);
+    void ConstructStaticPhysicsActor(const physx::PxGeometry& geometry, physx::PxMaterial& material);
+
+protected:
 	glm::vec3 mPosition;
 	glm::vec3 mScale;
 	glm::vec3 mRotation;
@@ -53,5 +61,6 @@ protected:
     int mCount;
     bool mIsThroughLight;
 
-	Model* mModel;
+	const Model* mModel;
+    physx::PxActor* mPhysicsActorPtr;
 };

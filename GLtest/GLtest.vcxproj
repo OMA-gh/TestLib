@@ -68,7 +68,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>D:\simple-opengl-image-library\include;D:\PhysX-3.4\PxShared\include;D:\PhysX-3.4\PhysX_3.4\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\simple-opengl-image-library\libs;D:\PhysX-3.4\PhysX_3.4\Lib\vc15win64;D:\PhysX-3.4\PxShared\lib\vc15win64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LibraryPath>D:\PhysX-3.4\PhysX_3.4\Lib\vc15win64;D:\PhysX-3.4\PxShared\lib\vc15win64;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\PhysX-3.4\PxShared\include;D:\PhysX-3.4\PhysX_3.4\Include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -82,9 +89,10 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>Dependencies\SOIL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SOIL2.lib;freeglutd.lib;glu32.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SOIL2.lib;freeglutd.lib;glu32.lib;opengl32.lib;glew32.lib;PhysX3DEBUG_x64.lib;PhysX3CommonDEBUG_x64.lib;PhysX3ExtensionsDEBUG.lib;PhysX3CookingDEBUG_x64.lib;PxTaskDEBUG_x64.lib;PxPvdSDKDEBUG_x64.lib;PxFoundationDEBUG_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>Dependencies\SOIL2\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -108,10 +116,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>PhysX3_x64.lib;PhysX3Common_x64.lib;PhysX3Extensions.lib;PhysX3Cooking_x64.lib;PxTask_x64.lib;PxPvdSDK_x64.lib;PxFoundation_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

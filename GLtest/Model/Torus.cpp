@@ -77,3 +77,7 @@ void Torus::update() {
     }
 }
 
+void Torus::render() const {
+
+}
+
