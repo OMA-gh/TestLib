@@ -40,13 +40,13 @@ void Physics::calc() {
     mScenePtr->fetchResults(true);
 }
 
-physx::PxActor* Physics::CreateDynamic(const physx::PxTransform& t, const physx::PxGeometry& geometry, physx::PxMaterial& material) {
+physx::PxRigidActor* Physics::CreateDynamic(const physx::PxTransform& t, const physx::PxGeometry& geometry, physx::PxMaterial& material) {
     physx::PxRigidDynamic* dynamic = physx::PxCreateDynamic(*mPhysicsPtr, t, geometry, material, 10.0f);
     mScenePtr->addActor(*dynamic);
     return dynamic;
 }
 
-physx::PxActor* Physics::CreateStatic(const physx::PxTransform& t, const physx::PxGeometry& geometry, physx::PxMaterial& material) {
+physx::PxRigidActor* Physics::CreateStatic(const physx::PxTransform& t, const physx::PxGeometry& geometry, physx::PxMaterial& material) {
     physx::PxRigidStatic* static_actor = physx::PxCreateStatic(*mPhysicsPtr, t, geometry, material);
     mScenePtr->addActor(*static_actor);
     return static_actor;

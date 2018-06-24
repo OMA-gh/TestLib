@@ -99,6 +99,9 @@
     <ClCompile Include="System\Physics.cpp">
       <Filter>System</Filter>
     </ClCompile>
+    <ClCompile Include="Model\ObjModel.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glslprogram.h">
@@ -166,6 +169,9 @@
     </ClInclude>
     <ClInclude Include="System\Physics.h">
       <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\ObjModel.h">
+      <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

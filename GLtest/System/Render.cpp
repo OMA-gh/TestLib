@@ -80,7 +80,7 @@ void Render::DrawPass2() {
     for (int i = 0; i < 1; i++) {
         glBindTexture(GL_TEXTURE_2D, mDepthTex);
         glBindVertexArray(mDebugQuad[0]);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+        //glDrawArrays(GL_TRIANGLES, 0, 6);
     }
 }
 
@@ -138,7 +138,7 @@ void Render::setActorMatrix(const Actor& actor) {
 void Render::resetActorMatrix() {
     prog.setUniform("ObjectPosition", glm::vec3(0.f));
     prog.setUniform("ObjectScale", glm::vec3(1.f));
-    prog.setUniform("ObjectRotation", glm::vec3(1.f, 0.f, 0.f));
+    prog.setUniform("ObjectRotation", glm::mat4(1.f));
 }
 
 void Render::compileAndLinkShader()

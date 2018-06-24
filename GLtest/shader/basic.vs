@@ -17,17 +17,20 @@ uniform mat4 ShadowMatrix;
 
 uniform vec3 ObjectPosition;
 uniform vec3 ObjectScale;
-uniform vec3 ObjectRotation;
+uniform mat4 ObjectRotation;
 
 void main()
 {
-	vec3 rotate = ObjectRotation/vec3(1,0,0);
-    vec3 pos = VertexPosition*ObjectScale+ObjectPosition;
-    VNormal = normalize(VertexNormal);
-    VPosition = vec3(ModelViewMatrix * vec4(pos,1.0));
-	//VPosition = pos;
+	mat4 rotate = ObjectRotation/mat4(1);
+    vec3 scaled = VertexPosition*ObjectScale;
+    //vec4 rotated = vec4(scaled,1.0);
+    vec4 rotated = ObjectRotation*vec4(scaled,0);
+    vec4 pos = rotated + vec4(ObjectPosition,1);
+    vec4 rotated_normal = ObjectRotation*vec4(VertexNormal,0);
+    VNormal = normalize(vec3(rotated_normal.x,rotated_normal.y,rotated_normal.z));
+    VPosition = vec3(ModelViewMatrix * pos);
     VColor = VertexColor;
 	VTexCoord = VertexTexCoord;
-    VShadowCoord = ShadowMatrix * vec4(pos,1.0);
-    gl_Position = MVP * vec4(pos,1.0);
+    VShadowCoord = ShadowMatrix * pos;
+    gl_Position = MVP * pos;
 }

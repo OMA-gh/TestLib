@@ -13,6 +13,12 @@ using std::ostringstream;
 
 #include "glutils.h"
 
+#include "Model\Terrain.h"
+#include "Model\Cube.h"
+#include "Model\Plane.h"
+#include "Model\Torus.h"
+#include "Model\ObjModel.h"
+
 #include "Actor\Test.h"
 #include "Actor\Light.h"
 #include "Actor\Simple.h"
@@ -20,8 +26,6 @@ using std::ostringstream;
 #define BUFFER_OFFSET(bytes) ((GLubyte *)NULL + (bytes))
 
 SceneBasic::SceneBasic()
-	:mTerrain()
-	,mCube()
 {
 }
 
@@ -29,7 +33,7 @@ void SceneBasic::debugCommand() {
     static int actor_num = 0;
     std::string name("debug");
     name = name.append(std::to_string(actor_num));
-    GET_INSTANCE(ActorMgr)->addActor(name, std::move(std::make_unique<Simple>()), GET_INSTANCE(ModelMgr)->getModelPtr("cube"));
+    GET_INSTANCE(ActorMgr)->addActor(name, std::move(std::make_unique<Simple>()), GET_INSTANCE(ModelMgr)->getModelPtr("bunny"));
     actor_num++;
 }
 
@@ -43,6 +47,7 @@ void SceneBasic::initScene()
     GET_INSTANCE(ModelMgr)->addModel("cube", std::move(std::make_unique<Cube>()));
     GET_INSTANCE(ModelMgr)->addModel("torus", std::move(std::make_unique<Torus>()));
     GET_INSTANCE(ModelMgr)->addModel("terrain", std::move(std::make_unique<Terrain>()));
+    GET_INSTANCE(ModelMgr)->addModel("bunny", std::move(std::make_unique<ObjModel>()));
 
     if (GET_INSTANCE(ActorMgr)) {
         GET_INSTANCE(ActorMgr)->addActorDynamic("Test", std::move(std::make_unique<Simple>()), GET_INSTANCE(ModelMgr)->getModelPtr("cube"));

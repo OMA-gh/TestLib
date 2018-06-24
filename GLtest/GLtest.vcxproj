@@ -69,7 +69,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\simple-opengl-image-library\include;D:\PhysX-3.4\PxShared\include;D:\PhysX-3.4\PhysX_3.4\Include;$(IncludePath)</IncludePath>
+    <IncludePath>D:\tinyobjloader;D:\simple-opengl-image-library\include;D:\PhysX-3.4\PxShared\include;D:\PhysX-3.4\PhysX_3.4\Include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\simple-opengl-image-library\libs;D:\PhysX-3.4\PhysX_3.4\Lib\vc15win64;D:\PhysX-3.4\PxShared\lib\vc15win64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -136,6 +136,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model\Cube.cpp" />
     <ClCompile Include="Model\Model.cpp" />
+    <ClCompile Include="Model\ObjModel.cpp" />
     <ClCompile Include="Model\Plane.cpp" />
     <ClCompile Include="Model\Terrain.cpp" />
     <ClCompile Include="Model\Texture.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="glutils.h" />
     <ClInclude Include="Model\Cube.h" />
     <ClInclude Include="Model\Model.h" />
+    <ClInclude Include="Model\ObjModel.h" />
     <ClInclude Include="Model\Plane.h" />
     <ClInclude Include="Model\Terrain.h" />
     <ClInclude Include="Model\Texture.h" />

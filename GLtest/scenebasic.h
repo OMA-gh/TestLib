@@ -3,11 +3,6 @@
 
 #include "scene.h"
 
-#include "Model\Terrain.h"
-#include "Model\Cube.h"
-#include "Model\Plane.h"
-#include "Model\Torus.h"
-
 class SceneBasic : public Scene
 {
 private:
@@ -24,11 +19,6 @@ public:
     void render();
 
 protected:
-
-	Terrain mTerrain;
-	Plane mPlane;
-	Cube mCube;
-
 };
 
 #endif // SCENEBASIC_H

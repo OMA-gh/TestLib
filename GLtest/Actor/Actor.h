@@ -33,10 +33,10 @@ public:
 	void setScale(const glm::vec3& scale) {
 		mScale = scale;
 	}
-	const glm::vec3& getRotation() const {
+	const glm::mat4& getRotation() const {
 		return mRotation;
 	}
-	void setRotation(const glm::vec3& rotate) {
+	void setRotation(const glm::mat4& rotate) {
 		mRotation = rotate;
 	}
     const std::string& getName() const {
@@ -56,11 +56,11 @@ protected:
 protected:
 	glm::vec3 mPosition;
 	glm::vec3 mScale;
-	glm::vec3 mRotation;
+	glm::mat4 mRotation;
     std::string mName;
     int mCount;
     bool mIsThroughLight;
 
 	const Model* mModel;
-    physx::PxActor* mPhysicsActorPtr;
+    physx::PxRigidActor* mPhysicsActorPtr;
 };
