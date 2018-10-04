@@ -1,5 +1,6 @@
 #include "Manager.h"
 #include "../Camera.h"
+#include "../Model/Line.h"
 
 Render *Render::s_pInstance = nullptr;
 
@@ -22,6 +23,15 @@ void Render::drawActor(int pass_index) {
             setActorMatrix(actor);
             actor.render();
         }
+    }
+}
+
+void Render::drawCollision_() {
+    auto it = GET_INSTANCE(ActorMgr)->getActorArray().begin();
+    auto end = GET_INSTANCE(ActorMgr)->getActorArray().end();
+    for (; it != end; it++) {
+        const Actor& actor = GET_INSTANCE(ActorMgr)->getActor(it->first);
+        actor.renderCollision();
     }
 }
 
@@ -58,6 +68,12 @@ void Render::DrawPass1() {
     setMatrices();
     glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 1, &mPass1Index);
     drawActor(1);
+
+    resetActorMatrix();
+    Line line;
+    line.init();
+    line.render();
+
 }
 void Render::DrawPass2() {
     // Pass3
@@ -82,6 +98,10 @@ void Render::DrawPass2() {
         glBindVertexArray(mDebugQuad[0]);
         //glDrawArrays(GL_TRIANGLES, 0, 6);
     }
+}
+
+void Render::DrawDebugLine() {
+    drawCollision_();
 }
 
 void Render::init() {

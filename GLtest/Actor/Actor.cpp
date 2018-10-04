@@ -14,12 +14,27 @@ Actor::Actor()
 void Actor::ConstructDynamicPhysicsActor(const physx::PxGeometry& geometry, physx::PxMaterial& material) {
     mPhysicsActorPtr = GET_INSTANCE(Physics)->CreateDynamic(physx::PxTransform(getPosition().x, getPosition().y, getPosition().z), geometry, material);
 };
+void Actor::ConstructDynamicPhysicsActor(const physx::PxTransform& transform, const physx::PxGeometry& geometry, physx::PxMaterial& material) {
+    mPhysicsActorPtr = GET_INSTANCE(Physics)->CreateDynamic(transform, geometry, material);
+};
 void Actor::ConstructStaticPhysicsActor(const physx::PxGeometry& geometry, physx::PxMaterial& material) {
     mPhysicsActorPtr = GET_INSTANCE(Physics)->CreateStatic(physx::PxTransform(getPosition().x, getPosition().y, getPosition().z), geometry, material);
+};
+void Actor::ConstructStaticPhysicsActor(const physx::PxTransform& transform, const physx::PxGeometry& geometry, physx::PxMaterial& material) {
+    mPhysicsActorPtr = GET_INSTANCE(Physics)->CreateStatic(transform, geometry, material);
 };
 
 void Actor::render() const {
 	mModel->render();
+}
+
+void Actor::renderCollision() const {
+    glLineWidth(2.5);
+    glColor3f(1.0, 0.0, 0.0);
+    glBegin(GL_LINES);
+    glVertex3f(getPosition().x, getPosition().y, getPosition().z);
+    glVertex3f(getPosition().x, getPosition().y+1, getPosition().z);
+    glEnd();
 }
 
 void Actor::reflectBody()

@@ -11,7 +11,7 @@ ObjModel::ObjModel() : Model() {
 }
 
 void ObjModel::setIndexInfo() {
-    std::string inputfile = RESOURCE_DIR"bunny.obj";
+    std::string inputfile = RESOURCE_DIR"oma.obj";
 
     tinyobj::attrib_t attrib;
     std::vector<tinyobj::shape_t> shapes;

@@ -11,8 +11,9 @@ public:
     virtual void prepare() {};
     virtual void update() { printf("WARNING|基底アクターのupdateです。\n"); };
 	virtual void render() const;
+    virtual void renderCollision() const;
 
-    void reflectBody();
+    virtual void reflectBody();
 
 	void setModel(const Model* const model) {
 		mModel = model;
@@ -51,7 +52,9 @@ public:
 
 protected:
     void ConstructDynamicPhysicsActor(const physx::PxGeometry& geometry, physx::PxMaterial& material);
+    void ConstructDynamicPhysicsActor(const physx::PxTransform& transform, const physx::PxGeometry& geometry, physx::PxMaterial& material);
     void ConstructStaticPhysicsActor(const physx::PxGeometry& geometry, physx::PxMaterial& material);
+    void ConstructStaticPhysicsActor(const physx::PxTransform& transform, const physx::PxGeometry& geometry, physx::PxMaterial& material);
 
 protected:
 	glm::vec3 mPosition;
