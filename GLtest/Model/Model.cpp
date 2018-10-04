@@ -13,7 +13,6 @@ void Model::init() {
     setIndexInfo();
     mPolygonNum = (int)mIndexArray.size() * sizeof(int);
     setVertexBufferObject();
-	//setTextureInfo();
 }
 
 void Model::setVertexBufferObject() {

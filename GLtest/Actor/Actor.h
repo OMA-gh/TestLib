@@ -11,8 +11,9 @@ public:
     virtual void prepare() {};
     virtual void update() { printf("WARNING|基底アクターのupdateです。\n"); };
 	virtual void render() const;
+    virtual void renderCollision() const;
 
-    void reflectBody();
+    virtual void reflectBody();
 
 	void setModel(const Model* const model) {
 		mModel = model;
@@ -33,10 +34,10 @@ public:
 	void setScale(const glm::vec3& scale) {
 		mScale = scale;
 	}
-	const glm::vec3& getRotation() const {
+	const glm::mat4& getRotation() const {
 		return mRotation;
 	}
-	void setRotation(const glm::vec3& rotate) {
+	void setRotation(const glm::mat4& rotate) {
 		mRotation = rotate;
 	}
     const std::string& getName() const {
@@ -51,16 +52,18 @@ public:
 
 protected:
     void ConstructDynamicPhysicsActor(const physx::PxGeometry& geometry, physx::PxMaterial& material);
+    void ConstructDynamicPhysicsActor(const physx::PxTransform& transform, const physx::PxGeometry& geometry, physx::PxMaterial& material);
     void ConstructStaticPhysicsActor(const physx::PxGeometry& geometry, physx::PxMaterial& material);
+    void ConstructStaticPhysicsActor(const physx::PxTransform& transform, const physx::PxGeometry& geometry, physx::PxMaterial& material);
 
 protected:
 	glm::vec3 mPosition;
 	glm::vec3 mScale;
-	glm::vec3 mRotation;
+	glm::mat4 mRotation;
     std::string mName;
     int mCount;
     bool mIsThroughLight;
 
 	const Model* mModel;
-    physx::PxActor* mPhysicsActorPtr;
+    physx::PxRigidActor* mPhysicsActorPtr;
 };

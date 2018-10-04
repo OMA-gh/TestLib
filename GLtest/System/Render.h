@@ -26,8 +26,10 @@ public:
     void DrawShadowMap();
     void DrawPass1();
     void DrawPass2();
+    void DrawDebugLine();
 private:
     void drawActor(int pass_index);
+    void drawCollision_();
     void setMatrices();
     void setActorMatrix(const Actor& actor);
     void resetActorMatrix();

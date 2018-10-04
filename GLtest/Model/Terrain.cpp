@@ -132,8 +132,8 @@ void Terrain::setIndexInfo() {
     glm::vec3 push_normal(0);
 	glm::vec2 push_texcoord(0);
 	for (int i = 0; i < GRID_SIZE; i++) {
-		push_pos.x = (float)FIELD_SIZE / SIZE*(i%SIZE);// x
-		push_pos.z = (float)FIELD_SIZE / SIZE*((int)(i / SIZE));// z
+        push_pos.x = (float)FIELD_SIZE / SIZE * (i%SIZE) - FIELD_SIZE / 2;// x
+		push_pos.z = (float)FIELD_SIZE / SIZE*((int)(i / SIZE)) - FIELD_SIZE / 2;// z
 		push_pos.y = OctavePerlin(push_pos.x, push_pos.z, 8, 0.8f, 0.4f) * 2;// y
 		float y = push_pos.y / 2;
 		if (y < 0.41) {

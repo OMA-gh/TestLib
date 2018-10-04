@@ -25,8 +25,8 @@ public:
     void init();
     void calc();
 
-    physx::PxActor* CreateDynamic(const physx::PxTransform& t, const physx::PxGeometry& geometry, physx::PxMaterial& material);
-    physx::PxActor* CreateStatic(const physx::PxTransform& t, const physx::PxGeometry& geometry, physx::PxMaterial& material);
+    physx::PxRigidActor* CreateDynamic(const physx::PxTransform& t, const physx::PxGeometry& geometry, physx::PxMaterial& material);
+    physx::PxRigidActor* CreateStatic(const physx::PxTransform& t, const physx::PxGeometry& geometry, physx::PxMaterial& material);
 
 private:
     physx::PxDefaultAllocator mAllocator;
