@@ -1,6 +1,6 @@
 #pragma once
 
-#include <SOIL.h>
+#include <SOIL2.h>
 
 #include <gl/GL/glew.h>
 #include <gl/GL/glut.h>
