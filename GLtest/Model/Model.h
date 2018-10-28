@@ -6,7 +6,7 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
-#include <SOIL2.h>
+#include <SOIL.h>
 
 #include <vector>
 

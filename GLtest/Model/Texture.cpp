@@ -11,10 +11,12 @@ Texture::~Texture() {
 
 void Texture::init(const std::string& file_name) {
 	mFileName = TEXTURE_DIR + file_name;
+    /*
 	mpHtMap = SOIL_load_image(
 		mFileName.c_str(),
 		&mWidth, &mHeight, &mChannel, 0);
 	if (!mpHtMap) {
 		printf("texture load error:%s\n", file_name.c_str());
 	}
+    */
 }

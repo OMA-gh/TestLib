@@ -21,7 +21,7 @@ uniform mat4 ObjectRotation;
 
 void main()
 {
-	mat4 rotate = ObjectRotation/mat4(1);
+    mat4 rotate = ObjectRotation/mat4(1);
     vec3 scaled = VertexPosition*ObjectScale;
     //vec4 rotated = vec4(scaled,1.0);
     vec4 rotated = ObjectRotation*vec4(scaled,0);
@@ -30,7 +30,7 @@ void main()
     VNormal = normalize(vec3(rotated_normal.x,rotated_normal.y,rotated_normal.z));
     VPosition = vec3(ModelViewMatrix * pos);
     VColor = VertexColor;
-	VTexCoord = VertexTexCoord;
+    VTexCoord = VertexTexCoord;
     VShadowCoord = ShadowMatrix * pos;
     gl_Position = MVP * pos;
 }

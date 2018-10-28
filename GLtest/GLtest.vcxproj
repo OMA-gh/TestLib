@@ -69,8 +69,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\home\Lib\glm;D:\home\Lib\SOIL2\incs;D:\simple-opengl-image-library\include;D:\PhysX-3.4\PxShared\include;D:\PhysX-3.4\PhysX_3.4\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\simple-opengl-image-library\libs;D:\PhysX-3.4\PhysX_3.4\Lib\vc15win64;D:\PhysX-3.4\PxShared\lib\vc15win64;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\home\Lib\Autodesk\FBX\FBX SDK\2019.0\include;D:\home\Lib\FBXLoader\include;D:\home\Lib\tinyobjloader;D:\home\Lib\glm;D:\home\Lib\simple-opengl-image-library\include;D:\home\Lib\PhysX-3.4\PxShared\include;D:\home\Lib\PhysX-3.4\PhysX_3.4\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\home\Lib\Autodesk\FBX\FBX SDK\2019.0\lib\vs2015\x64\debug;D:\home\Lib\simple-opengl-image-library\libs;D:\home\Lib\PhysX-3.4\PhysX_3.4\Lib\vc15win64;D:\home\Lib\PhysX-3.4\PxShared\lib\vc15win64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LibraryPath>D:\PhysX-3.4\PhysX_3.4\Lib\vc15win64;D:\PhysX-3.4\PxShared\lib\vc15win64;$(LibraryPath)</LibraryPath>
@@ -92,8 +92,8 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SOIL2.lib;freeglutd.lib;glu32.lib;opengl32.lib;glew32.lib;PhysX3DEBUG_x64.lib;PhysX3CommonDEBUG_x64.lib;PhysX3ExtensionsDEBUG.lib;PhysX3CookingDEBUG_x64.lib;PxTaskDEBUG_x64.lib;PxPvdSDKDEBUG_x64.lib;PxFoundationDEBUG_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>Dependencies\SOIL2\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libfbxsdk-mt.lib;SOIL.lib;freeglutd.lib;glu32.lib;opengl32.lib;glew32.lib;PhysX3DEBUG_x64.lib;PhysX3CommonDEBUG_x64.lib;PhysX3ExtensionsDEBUG.lib;PhysX3CookingDEBUG_x64.lib;PxTaskDEBUG_x64.lib;PxPvdSDKDEBUG_x64.lib;PxFoundationDEBUG_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -135,6 +135,7 @@
     <ClCompile Include="glutils.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model\Cube.cpp" />
+    <ClCompile Include="Model\FBXModel.cpp" />
     <ClCompile Include="Model\Model.cpp" />
     <ClCompile Include="Model\Plane.cpp" />
     <ClCompile Include="Model\Terrain.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="glslprogram.h" />
     <ClInclude Include="glutils.h" />
     <ClInclude Include="Model\Cube.h" />
+    <ClInclude Include="Model\FBXModel.h" />
     <ClInclude Include="Model\Model.h" />
     <ClInclude Include="Model\Plane.h" />
     <ClInclude Include="Model\Terrain.h" />

@@ -99,7 +99,7 @@
     <ClCompile Include="System\Physics.cpp">
       <Filter>System</Filter>
     </ClCompile>
-    <ClCompile Include="Model\ObjModel.cpp">
+    <ClCompile Include="Model\FBXModel.cpp">
       <Filter>Model</Filter>
     </ClCompile>
   </ItemGroup>
@@ -170,7 +170,7 @@
     <ClInclude Include="System\Physics.h">
       <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="Model\ObjModel.h">
+    <ClInclude Include="Model\FBXModel.h">
       <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>

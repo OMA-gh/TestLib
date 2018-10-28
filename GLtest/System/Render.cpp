@@ -70,10 +70,11 @@ void Render::DrawPass1() {
     drawActor(1);
 
     resetActorMatrix();
+    /*
     Line line;
     line.init();
     line.render();
-
+    */
 }
 void Render::DrawPass2() {
     // Pass3
@@ -115,8 +116,6 @@ void Render::init() {
     mPass1Index = glGetSubroutineIndex(prog.getHandle(), GL_FRAGMENT_SHADER, "pass1");
     mPass2Index = glGetSubroutineIndex(prog.getHandle(), GL_FRAGMENT_SHADER, "pass2");
 
-    prog.setUniform("Line.Width", 0.75f);
-    prog.setUniform("Line.Color", vec4(0.05f, 0.0f, 0.05f, 1.0f));
     prog.setUniform("Material.Kd", 0.6f, 0.6f, 0.6f);
     prog.setUniform("Light.Ld", 1.0f, 1.0f, 1.0f);
     prog.setUniform("Material.Ka", 0.5f, 0.5f, 0.5f);
@@ -124,6 +123,8 @@ void Render::init() {
     prog.setUniform("Material.Ks", 0.8f, 0.8f, 0.8f);
     prog.setUniform("Light.Ls", 1.0f, 1.0f, 1.0f);
     prog.setUniform("Material.Shininess", 100.0f);
+    prog.setUniform("LineWidth", 0.75f);
+    //prog.setUniform("Line.Color", vec4(0.05f, 0.0f, 0.05f, 1.0f));
 }
 
 void Render::setMatrices()
@@ -185,6 +186,8 @@ void Render::compileAndLinkShader()
     }
 
     prog.use();
+    prog.printActiveUniforms();
+    prog.printActiveAttribs();
 
     prog.setUniform("ShadowMap", 2);
     prog.setUniform("RenderTex", 0);
