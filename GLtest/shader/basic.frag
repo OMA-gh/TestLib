@@ -29,7 +29,6 @@ struct MaterialInfo{
 };
 uniform MaterialInfo Material;
 
-uniform float LineWidth;
 
 layout( location = 0 ) out vec4 FragColor;
 
@@ -54,6 +53,7 @@ void phongModel(out vec3 outAmb, out vec3 outDiff,out vec3 outSpec){
 subroutine (RenderPassType)
 void pass1()
 {
+    float LineWidth = -1.0;
     // Find the smallest distance
     float d = min( GEdgeDistance.x, GEdgeDistance.y );
     d = min( d, GEdgeDistance.z );
@@ -67,7 +67,6 @@ void pass1()
         float x = d - (LineWidth - 1);
         mixVal = exp2(-2.0 * (x*x));
     }
-    //mixVal=0.0;
     
     float sum = 0;
     sum += textureProjOffset(ShadowMap,GShadowCoord,ivec2(-1, -1));
@@ -86,13 +85,13 @@ void pass1()
     //FragColor = vec4((diff+spec) + amb,1.0);
     //FragColor = vec4((diff+spec)*shadow + amb,1.0);
     FragColor = vec4((diff*shadow)+amb,1.0)*texColor + vec4(spec*shadow,1.0);
+    FragColor = mix( FragColor, vec4(0.0,0.0,0.0,1.0), mixVal );
     //FragColor = vec4((diff*shadow+amb,1.0) + vec4(spec*shadow,1.0);
     
     //FragColor = mix( vec4(phongModel(), 1.0), Line.Color, mixVal );
     //FragColor = vec4(amb+diff, 1.0) * texColor + vec4(spec, 1.0);
     //FragColor = texColor;
     //FragColor = mix( texColor, Line.Color, mixVal );
-    //FragColor = mix( FragColor, Line.Color, mixVal );
 }
 
 float luminance( vec3 color ) {
