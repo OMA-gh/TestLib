@@ -123,8 +123,6 @@ void Render::init() {
     prog.setUniform("Material.Ks", 0.8f, 0.8f, 0.8f);
     prog.setUniform("Light.Ls", 1.0f, 1.0f, 1.0f);
     prog.setUniform("Material.Shininess", 100.0f);
-    prog.setUniform("LineWidth", 0.75f);
-    //prog.setUniform("Line.Color", vec4(0.05f, 0.0f, 0.05f, 1.0f));
 }
 
 void Render::setMatrices()
@@ -164,19 +162,19 @@ void Render::resetActorMatrix() {
 
 void Render::compileAndLinkShader()
 {
-    if (!prog.compileShaderFromFile("shader/basic.vs", GLSLShader::VERTEX))
+    if (!prog.compileShaderFromFile("shader/basic.vert", GLSLShader::VERTEX))
     {
         printf("Vertex shader failed to compile!\n%s",
             prog.log().c_str());
     }
-    if (!prog.compileShaderFromFile("shader/basic.gs", GLSLShader::GEOMETRY))
-    {
-        printf("Geometry shader failed to compile!\n%s",
-            prog.log().c_str());
-    }
-    if (!prog.compileShaderFromFile("shader/basic.fs", GLSLShader::FRAGMENT))
+    if (!prog.compileShaderFromFile("shader/basic.frag", GLSLShader::FRAGMENT))
     {
         printf("Fragment shader failed to compile!\n%s",
+            prog.log().c_str());
+    }
+    if (!prog.compileShaderFromFile("shader/basic.geom", GLSLShader::GEOMETRY))
+    {
+        printf("Geometry shader failed to compile!\n%s",
             prog.log().c_str());
     }
     if (!prog.link())

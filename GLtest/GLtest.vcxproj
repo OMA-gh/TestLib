@@ -69,8 +69,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\home\Lib\Autodesk\FBX\FBX SDK\2019.0\include;D:\home\Lib\FBXLoader\include;D:\home\Lib\tinyobjloader;D:\home\Lib\glm;D:\home\Lib\simple-opengl-image-library\include;D:\home\Lib\PhysX-3.4\PxShared\include;D:\home\Lib\PhysX-3.4\PhysX_3.4\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\home\Lib\Autodesk\FBX\FBX SDK\2019.0\lib\vs2015\x64\debug;D:\home\Lib\simple-opengl-image-library\libs;D:\home\Lib\PhysX-3.4\PhysX_3.4\Lib\vc15win64;D:\home\Lib\PhysX-3.4\PxShared\lib\vc15win64;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\home\Lib\Autodesk\FBX\FBX SDK\2019.0\include;D:\home\Lib\FBXLoader\include;D:\home\Lib\tinyobjloader;D:\home\Lib\glm;D:\home\Lib\MySoil\src;D:\home\Lib\PhysX-3.4\PxShared\include;D:\home\Lib\PhysX-3.4\PhysX_3.4\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\home\Lib\Autodesk\FBX\FBX SDK\2019.0\lib\vs2015\x64\debug;D:\home\Lib\MySoil\lib;D:\home\Lib\PhysX-3.4\PhysX_3.4\Lib\vc15win64;D:\home\Lib\PhysX-3.4\PxShared\lib\vc15win64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LibraryPath>D:\PhysX-3.4\PhysX_3.4\Lib\vc15win64;D:\PhysX-3.4\PxShared\lib\vc15win64;$(LibraryPath)</LibraryPath>
