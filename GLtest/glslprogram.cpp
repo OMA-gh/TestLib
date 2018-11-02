@@ -11,21 +11,21 @@ using std::ostringstream;
 
 #include <sys/stat.h>
 
-GLSLProgram::GLSLProgram() : handle(0), linked(false) { }
+GLSLProgram::GLSLProgram() : mHandle(0), mIsLinked(false) { }
 
 bool GLSLProgram::compileShaderFromFile(const char * fileName,
 	GLSLShader::GLSLShaderType type)
 {
 	if (!fileExists(fileName))
 	{
-		logString = "File not found.";
+		mLogString = "File not found.";
 		return false;
 	}
 
-	if (handle <= 0) {
-		handle = glCreateProgram();
-		if (handle == 0) {
-			logString = "Unable to create shader program.";
+	if (mHandle <= 0) {
+		mHandle = glCreateProgram();
+		if (mHandle == 0) {
+			mLogString = "Unable to create shader program.";
 			return false;
 		}
 	}
@@ -48,10 +48,10 @@ bool GLSLProgram::compileShaderFromFile(const char * fileName,
 
 bool GLSLProgram::compileShaderFromString(const string & source, GLSLShader::GLSLShaderType type)
 {
-	if (handle <= 0) {
-		handle = glCreateProgram();
-		if (handle == 0) {
-			logString = "Unable to create shader program.";
+	if (mHandle <= 0) {
+		mHandle = glCreateProgram();
+		if (mHandle == 0) {
+			mLogString = "Unable to create shader program.";
 			return false;
 		}
 	}
@@ -90,13 +90,13 @@ bool GLSLProgram::compileShaderFromString(const string & source, GLSLShader::GLS
 	if (GL_FALSE == result) {
 		// Compile failed, store log and return false
 		int length = 0;
-		logString = "";
+		mLogString = "";
 		glGetShaderiv(shaderHandle, GL_INFO_LOG_LENGTH, &length);
 		if (length > 0) {
 			char * c_log = new char[length];
 			int written = 0;
 			glGetShaderInfoLog(shaderHandle, length, &written, c_log);
-			logString = c_log;
+			mLogString = c_log;
 			delete[] c_log;
 		}
 
@@ -104,72 +104,72 @@ bool GLSLProgram::compileShaderFromString(const string & source, GLSLShader::GLS
 	}
 	else {
 		// Compile succeeded, attach shader and return true
-		glAttachShader(handle, shaderHandle);
+		glAttachShader(mHandle, shaderHandle);
 		return true;
 	}
 }
 
 bool GLSLProgram::link()
 {
-	if (linked) return true;
-	if (handle <= 0) return false;
+	if (mIsLinked) return true;
+	if (mHandle <= 0) return false;
 
-	glLinkProgram(handle);
+	glLinkProgram(mHandle);
 
 	int status = 0;
-	glGetProgramiv(handle, GL_LINK_STATUS, &status);
+	glGetProgramiv(mHandle, GL_LINK_STATUS, &status);
 	if (GL_FALSE == status) {
 		// Store log and return false
 		int length = 0;
-		logString = "";
+		mLogString = "";
 
-		glGetProgramiv(handle, GL_INFO_LOG_LENGTH, &length);
+		glGetProgramiv(mHandle, GL_INFO_LOG_LENGTH, &length);
 
 		if (length > 0) {
 			char * c_log = new char[length];
 			int written = 0;
-			glGetProgramInfoLog(handle, length, &written, c_log);
-			logString = c_log;
+			glGetProgramInfoLog(mHandle, length, &written, c_log);
+			mLogString = c_log;
 			delete[] c_log;
 		}
 
 		return false;
 	}
 	else {
-		linked = true;
-		return linked;
+		mIsLinked = true;
+		return mIsLinked;
 	}
 }
 
 void GLSLProgram::use()
 {
-	if (handle <= 0 || (!linked)) return;
-	glUseProgram(handle);
+	if (mHandle <= 0 || (!mIsLinked)) return;
+	glUseProgram(mHandle);
 }
 
 string GLSLProgram::log()
 {
-	return logString;
+	return mLogString;
 }
 
 int GLSLProgram::getHandle()
 {
-	return handle;
+	return mHandle;
 }
 
 bool GLSLProgram::isLinked()
 {
-	return linked;
+	return mIsLinked;
 }
 
 void GLSLProgram::bindAttribLocation(GLuint location, const char * name)
 {
-	glBindAttribLocation(handle, location, name);
+	glBindAttribLocation(mHandle, location, name);
 }
 
 void GLSLProgram::bindFragDataLocation(GLuint location, const char * name)
 {
-	glBindFragDataLocation(handle, location, name);
+	glBindFragDataLocation(mHandle, location, name);
 }
 
 void GLSLProgram::setUniform(const char *name, float x, float y, float z)
@@ -276,16 +276,16 @@ void GLSLProgram::printActiveUniforms() {
 	GLsizei written;
 	GLenum type;
 
-	glGetProgramiv(handle, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxLen);
-	glGetProgramiv(handle, GL_ACTIVE_UNIFORMS, &nUniforms);
+	glGetProgramiv(mHandle, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxLen);
+	glGetProgramiv(mHandle, GL_ACTIVE_UNIFORMS, &nUniforms);
 
 	name = (GLchar *)malloc(maxLen);
 
 	printf(" Location | Name\n");
 	printf("------------------------------------------------\n");
 	for (int i = 0; i < nUniforms; ++i) {
-		glGetActiveUniform(handle, i, maxLen, &written, &size, &type, name);
-		location = glGetUniformLocation(handle, name);
+		glGetActiveUniform(mHandle, i, maxLen, &written, &size, &type, name);
+		location = glGetUniformLocation(mHandle, name);
 		printf(" %-8d | %s\n", location, name);
 	}
 
@@ -298,16 +298,16 @@ void GLSLProgram::printActiveAttribs() {
 	GLenum type;
 	GLchar * name;
 
-	glGetProgramiv(handle, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &maxLength);
-	glGetProgramiv(handle, GL_ACTIVE_ATTRIBUTES, &nAttribs);
+	glGetProgramiv(mHandle, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH, &maxLength);
+	glGetProgramiv(mHandle, GL_ACTIVE_ATTRIBUTES, &nAttribs);
 
 	name = (GLchar *)malloc(maxLength);
 
 	printf(" Index | Name\n");
 	printf("------------------------------------------------\n");
 	for (int i = 0; i < nAttribs; i++) {
-		glGetActiveAttrib(handle, i, maxLength, &written, &size, &type, name);
-		location = glGetAttribLocation(handle, name);
+		glGetActiveAttrib(mHandle, i, maxLength, &written, &size, &type, name);
+		location = glGetAttribLocation(mHandle, name);
 		printf(" %-5d | %s\n", location, name);
 	}
 
@@ -319,21 +319,21 @@ bool GLSLProgram::validate()
 	if (!isLinked()) return false;
 
 	GLint status;
-	glValidateProgram(handle);
-	glGetProgramiv(handle, GL_VALIDATE_STATUS, &status);
+	glValidateProgram(mHandle);
+	glGetProgramiv(mHandle, GL_VALIDATE_STATUS, &status);
 
 	if (GL_FALSE == status) {
 		// Store log and return false
 		int length = 0;
-		logString = "";
+		mLogString = "";
 
-		glGetProgramiv(handle, GL_INFO_LOG_LENGTH, &length);
+		glGetProgramiv(mHandle, GL_INFO_LOG_LENGTH, &length);
 
 		if (length > 0) {
 			char * c_log = new char[length];
 			int written = 0;
-			glGetProgramInfoLog(handle, length, &written, c_log);
-			logString = c_log;
+			glGetProgramInfoLog(mHandle, length, &written, c_log);
+			mLogString = c_log;
 			delete[] c_log;
 		}
 
@@ -346,7 +346,7 @@ bool GLSLProgram::validate()
 
 int GLSLProgram::getUniformLocation(const char * name)
 {
-	return glGetUniformLocation(handle, name);
+	return glGetUniformLocation(mHandle, name);
 }
 
 bool GLSLProgram::fileExists(const string & fileName)

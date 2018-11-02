@@ -22,14 +22,6 @@ namespace GLSLShader {
 
 class GLSLProgram
 {
-private:
-	int  handle;
-	bool linked;
-	string logString;
-
-	int  getUniformLocation(const char * name);
-	bool fileExists(const string & fileName);
-
 public:
 	GLSLProgram();
 
@@ -59,6 +51,14 @@ public:
 
 	void   printActiveUniforms();
 	void   printActiveAttribs();
+
+private:
+    int  mHandle;
+    bool mIsLinked;
+    string mLogString;
+
+    int  getUniformLocation(const char * name);
+    bool fileExists(const string & fileName);
 };
 
 
