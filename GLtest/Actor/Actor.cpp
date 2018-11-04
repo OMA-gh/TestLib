@@ -11,6 +11,32 @@ Actor::Actor()
 {	
 };
 
+void Actor::prepare(CreateArg& arg) {
+    //setPosition(getPosition() + glm::vec3(0.f, 0.f, 0.f));
+    setPosition(glm::vec3(0.f, 5.f, 0.f));
+    //setScale(getScale() + glm::vec3(0.01f, 0.01f, 0.01f));
+    setScale(glm::vec3(1.f));
+    setRotation(glm::mat4(1.f));
+
+    physx::PxMaterial* material = GET_INSTANCE(Physics)->getPhysicsPtr()->createMaterial(0.5f, 0.5f, 0.5f);
+    ConstructDynamicPhysicsActor(physx::PxBoxGeometry(1.0f, 1.9f, 1.0f), *material);
+}
+
+void Actor::SetPhysicsActor(PhysicsArg& arg) {
+    physx::PxMaterial* material = GET_INSTANCE(Physics)->getPhysicsPtr->createMaterial(arg.centerPos);
+    switch (arg.physicsType) {
+    case PhysicsType::Box:
+        ConstructDynamicPhysicsActor(physx::PxBoxGeometry(arg.scale.x, arg.scale.y, arg.scale.z), *material);
+        break;
+    case PhysicsType::Sphere:
+        ConstructDynamicPhysicsActor(physx::PxSphereGeometry(), *material);
+        break;
+    default:
+        printf("‘¶Ý‚µ‚È‚¢PhysicsType‚Å‚·");
+        break;
+    }
+}
+
 void Actor::ConstructDynamicPhysicsActor(const physx::PxGeometry& geometry, physx::PxMaterial& material) {
     mPhysicsActorPtr = GET_INSTANCE(Physics)->CreateDynamic(physx::PxTransform(getPosition().x, getPosition().y, getPosition().z), geometry, material);
 };

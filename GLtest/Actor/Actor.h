@@ -6,9 +6,24 @@
 
 class Actor {
 public:
+    enum class PhysicsType {
+        Box = 0,
+        Sphere
+    };
+
+    struct CreateArg {
+        std::string modelKey;
+        glm::vec3 pos;
+    };
+    struct PhysicsArg {
+        PhysicsType physicsType;
+        glm::vec3 centerPos;
+        glm::vec3 scale;
+    };
+public:
 	Actor();
 
-    virtual void prepare() {};
+    virtual void prepare(CreateArg& arg);
     virtual void update() { printf("WARNING|基底アクターのupdateです。\n"); };
 	virtual void render() const;
     virtual void renderCollision() const;
@@ -55,6 +70,7 @@ protected:
     void ConstructDynamicPhysicsActor(const physx::PxTransform& transform, const physx::PxGeometry& geometry, physx::PxMaterial& material);
     void ConstructStaticPhysicsActor(const physx::PxGeometry& geometry, physx::PxMaterial& material);
     void ConstructStaticPhysicsActor(const physx::PxTransform& transform, const physx::PxGeometry& geometry, physx::PxMaterial& material);
+    void SetPhysicsActor(PhysicsArg& arg);
 
 protected:
 	glm::vec3 mPosition;
